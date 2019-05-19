@@ -5,6 +5,9 @@ Here you can find all the stl files for the kit also images and instructions of 
 * Socket System template v1 :warning:
 * Motor Block v1
   * Top part :warning:
+  * Bottom part :warning:
+* Main body 
+  * Top part :construction:
   * Bottom part :construction:
 
 
