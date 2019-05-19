@@ -1,4 +1,4 @@
-# Designs of the DIY-Robot kit
+# The designs of the DIY-Robot kit
 
 Here you can find all the stl files fro the kit also images and instructions of all parts.
 
