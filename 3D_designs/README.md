@@ -1,6 +1,6 @@
 # The designs of the DIY-Robot kit
 
-Here you can find all the stl files fro the kit also images and instructions of all parts.
+Here you can find all the stl files for the kit also images and instructions of all the parts.
 
 * Socket System v1 :warning:
 * Motor Block v1
