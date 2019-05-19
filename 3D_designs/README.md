@@ -7,6 +7,6 @@ Here you can find all the stl files fro the kit also images and instructions of 
 
 
 ## Explanation of marks
-* :warning: Under Construction part, not ready ready for printing yet.
+* :warning: Under Construction part, not ready for printing yet.
 * :white_check_mark: Ready for printing.
 * :construction: Upcoming release
