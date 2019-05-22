@@ -11,6 +11,13 @@ Here you can find all the stl files for the kit also images and instructions of 
   * Bottom part :construction:
 * Wire grouping socket 
   * 3 Wire socket :warning:
+* Raspberry Pi Camera Block :construction:
+* Servo Blocks
+  * SG-5010 Servo :construction:
+  * NG-90 Microservo :construction:
+* Sensors Blocks
+  * Ultrasonic sensor HC-SR04 :construction:
+  * IR Proximity Sensor :construction:
 
 
 ## Explanation of the marks
