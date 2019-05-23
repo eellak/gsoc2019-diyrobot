@@ -2,7 +2,10 @@
 
 Here you can find all the stl files for the kit also images and instructions of all the parts.
 
-* Socket System template :white_check_mark:
+* Socket System templates 
+  * Connection System between component blocks :white_check_mark:
+  * Raspberry Pi 3 self lock base :white_check_mark:
+  * L298N Dual H-Bridge self lock base :construction:
 * Motor Block 
   * Top part :white_check_mark:
   * Bottom part :white_check_mark:
@@ -19,7 +22,7 @@ Here you can find all the stl files for the kit also images and instructions of 
   * Ultrasonic sensor HC-SR04 :construction:
   * IR Proximity Sensor :construction:
 
-
+New parts 
 ## Explanation of the marks
 * :warning: Under Construction part, not ready for printing yet.
 * :white_check_mark: Ready for printing.
