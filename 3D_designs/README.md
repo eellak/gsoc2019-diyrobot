@@ -10,8 +10,8 @@ Here you can find all the stl files for the kit also images and instructions of 
   * Top part :white_check_mark:
   * Bottom part :white_check_mark:
 * Main body 
-  * Top part :construction:
-  * Bottom part :construction:
+  * Top part :warning:
+  * Bottom part :warning:
 * Wire grouping socket 
   * 3 Wire socket :warning:
 * Raspberry Pi Camera Block :construction:
