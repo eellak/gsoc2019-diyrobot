@@ -12,8 +12,15 @@ Here you can find all the stl files for the kit also images and instructions of 
 * Main body 
   * Top part :warning:
   * Bottom part :warning:
+* Boards modules
+  * Raspberry Pi 3 self lock base with male socket :warning:
+  * L298N Dual H-Bridge self lock base with male socket :warning:
+  * Arduino Mega self lock base with male socket :construction:
+  * Arduino Uno self lock base with male socket :construction:
 * Wire grouping socket 
+  * 4 Wire socket  :construction:
   * 3 Wire socket :warning:
+  * 2 Wire socket  :construction:
 * Raspberry Pi Camera Block :construction:
 * Servo Blocks
   * SG-5010 Servo :construction:
