@@ -26,7 +26,7 @@ Here you can find all the stl files for the kit also images and instructions of 
   * SG-5010 Servo :construction:
   * NG-90 Microservo :construction:
 * Sensors Blocks
-  * Ultrasonic sensor HC-SR04 :construction:
+  * Ultrasonic sensor HC-SR01 :warning:
   * IR Proximity Sensor :construction:
 
 New parts 
