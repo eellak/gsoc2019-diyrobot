@@ -53,3 +53,5 @@ Finally I will make all the needed preparation for easy deployment of software, 
 :package: The whole project will be packaged in a modified image of Rasbian OS, also the new libraries will be available in PYPI and the designs will be available in that repository.
 
 
+
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />The 3D designs, educational material and text is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
