@@ -29,8 +29,8 @@ Here you can find all the stl files for the kit also images and instructions of 
 * Sensors Blocks
   * Ultrasonic sensor HC-SR01 :warning:
   * IR Proximity Sensor :construction:
-  * Sensor extender 1 socket :construction:
-  * Dual male connector for Sensor extenders :construction:
+  * Sensor extender 1 socket :warning:
+  * Dual male connector for Sensor extenders :warning:
 
 New parts 
 ## Explanation of the marks
