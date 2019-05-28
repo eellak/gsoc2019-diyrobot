@@ -3,7 +3,8 @@
 Here you can find all the stl files for the kit also images and instructions of all the parts.
 
 * Socket System templates 
-  * Connection System between component blocks :white_check_mark:
+  * Connection System between components blocks :white_check_mark:
+  * Lock System between for components blocks :white_check_mark:
   * Raspberry Pi 3 self lock base :white_check_mark:
   * L298N Dual H-Bridge self lock base :white_check_mark:
 * Motor Block 
