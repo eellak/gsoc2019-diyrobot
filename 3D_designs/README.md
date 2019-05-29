@@ -22,11 +22,11 @@ Here you can find all the stl files for the kit also images and instructions of 
   * 4 Wire socket  :construction:
   * 3 Wire socket :warning:
   * 2 Wire socket  :construction:
-* Raspberry Pi Camera Block :construction:
 * Servo Blocks
   * SG-5010 Servo :construction:
   * NG-90 Microservo :construction:
 * Sensors Blocks
+  * Raspberry Pi Camera Block :warning:
   * Ultrasonic sensor HC-SR01 :warning:
   * IR Proximity Sensor :construction:
   * Sensor extender 1 socket :warning:
