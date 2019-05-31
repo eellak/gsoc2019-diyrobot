@@ -12,10 +12,10 @@ Here you can find all the stl files for the kit also images and instructions of 
   * Bottom part :white_check_mark:
 * Main body 
   * Top part :warning:
-  * Bottom part :warning:
+  * Bottom part :white_check_mark:
 * Boards modules
-  * Raspberry Pi 3 self lock base with male socket :warning:
-  * L298N Dual H-Bridge self lock base with male socket :warning:
+  * Raspberry Pi 3 self lock base with male socket :white_check_mark:
+  * L298N Dual H-Bridge self lock base with male socket :white_check_mark:
   * Arduino Mega self lock base with male socket :construction:
   * Arduino Uno self lock base with male socket :construction:
 * Wire grouping socket 
@@ -26,11 +26,11 @@ Here you can find all the stl files for the kit also images and instructions of 
   * SG-5010 Servo :construction:
   * NG-90 Microservo :construction:
 * Sensors Blocks
-  * Raspberry Pi Camera Block :warning:
-  * Ultrasonic sensor HC-SR01 :warning:
+  * Raspberry Pi Camera Block :white_check_mark:
+  * Ultrasonic sensor HC-SR01 :white_check_mark:
   * IR Proximity Sensor :construction:
-  * Sensor extender 1 socket :warning:
-  * Dual male connector for Sensor extenders :warning:
+  * Sensor extender 1 socket :white_check_mark:
+  * Dual male connector for Sensor extenders :white_check_mark:
 
 New parts 
 ## Explanation of the marks
