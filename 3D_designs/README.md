@@ -28,8 +28,8 @@ Here you can find all the stl files for the kit also images and instructions of 
 * Sensors Blocks
   * Raspberry Pi Camera Block :white_check_mark:
   * Ultrasonic sensor HC-SR01 :white_check_mark:
-  * IR Proximity Sensor :construction:
-  * Sensor extender 1 socket :white_check_mark:
+  * IR Infrared Obstacle :white_check_mark:
+  * Sensor extender 2 socket L shape:white_check_mark:
   * Dual male connector for Sensor extenders :white_check_mark:
 
 New parts 
