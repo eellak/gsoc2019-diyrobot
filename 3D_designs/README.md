@@ -31,7 +31,7 @@ Here you can find all the stl files for the kit also images and instructions of 
   * IR Infrared Obstacle :white_check_mark:
   * Sensor extender 2 socket L shape:white_check_mark:
   * Dual male connector for Sensor extenders :white_check_mark:
-  * Breadboard moedule :warning:
+  * Breadboard module :warning:
 
 New parts 
 ## Explanation of the marks
