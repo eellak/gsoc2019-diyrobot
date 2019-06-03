@@ -23,8 +23,12 @@ Here you can find all the stl files for the kit also images and instructions of 
   * 3 Wire socket :warning:
   * 2 Wire socket  :construction:
 * Servo Blocks
-  * SG-5010 Servo :construction:
+  * SG-5010 Servo :warning:
   * NG-90 Microservo :construction:
+* Arm parts
+  * Large extender :construction:
+  * Small extender :construction:
+  * Rotation base :construction:
 * Sensors Blocks
   * Raspberry Pi Camera Block :white_check_mark:
   * Ultrasonic sensor HC-SR04 :white_check_mark:
