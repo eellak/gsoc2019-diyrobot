@@ -29,6 +29,8 @@ Here you can find all the stl files for the kit also images and instructions of 
   * Large extender :construction:
   * Small extender :construction:
   * Rotation base :warning:
+  * Arm extension servo head socket :warning:
+  * Arm extension free rotation socket :warning:
 * Sensors Blocks
   * Raspberry Pi Camera Block :white_check_mark:
   * Ultrasonic sensor HC-SR04 :white_check_mark:
