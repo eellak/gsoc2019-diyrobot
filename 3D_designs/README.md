@@ -26,12 +26,10 @@ Here you can find all the stl files for the kit also images and instructions of 
   * SG-5010 Servo :warning:
   * NG-90 Microservo :construction:
 * Arm parts
-  * Large extender :construction:
-  * Small extender :construction:
   * Rotation base :warning:
   * Arm extension servo head socket :warning:
   * Arm extension free rotation socket :warning:
-  * Robotic Arm Gripper :construction:
+  * Robotic Arm Gripper :warning:
 * Sensors Blocks
   * Raspberry Pi Camera Block :white_check_mark:
   * Ultrasonic sensor HC-SR04 :white_check_mark:
