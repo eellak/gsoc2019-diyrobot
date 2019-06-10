@@ -39,6 +39,7 @@ Here you can find all the stl files for the kit also images and instructions of 
   * Sensor extender 2 socket L shape:white_check_mark:
   * Dual male connector for Sensor extenders :white_check_mark:
   * Breadboard module :white_check_mark:
+  * Magic Super-Mini-Breadboard :white_check_mark:
 
 New parts 
 ## Explanation of the marks
