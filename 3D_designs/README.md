@@ -39,7 +39,7 @@ Here you can find all the stl files for the kit also images and instructions of 
   * Breadboard module :white_check_mark:
   * Magic Super-Mini-Breadboard :white_check_mark:
   * Nokia 5110 LCD screen module :white_check_mark:
-  * Optical odometer HC-020K module :warning:
+  * Optical odometer HC-020K module :white_check_mark:
 
 New parts 
 ## Explanation of the marks
