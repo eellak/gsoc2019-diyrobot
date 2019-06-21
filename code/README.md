@@ -5,12 +5,17 @@ Here you can find all the needed files (python librarys, bash scripts and instal
 * Python robot library :warning:
   * Buzzer class :white_check_mark:
   * Dc motor class :white_check_mark:
-  * Raspberry Pi 3 self lock base :white_check_mark:
-  * L298N Dual H-Bridge self lock base :white_check_mark:
+  * Optical odometer class :white_check_mark:
+  * Obstacle ir sensor  class :white_check_mark:
+  * Servo motor class :white_check_mark:  
+  
+
 
 ## :exclamation: **Important Notice** :exclamation:
 :cop: The robot fully comply with the three laws of robotics:
+
 **Asimov's Laws**
+
   * **First Law:** A robot may not injure a human being or, through inaction, allow a human being to come to harm.
   * **Second Law:** A robot must obey the orders given it by human beings except where such orders would conflict with the First Law.
   * **Third Law:** A robot must protect its own existence as long as such protection does not conflict with the First or Second Laws.

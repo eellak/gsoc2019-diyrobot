@@ -123,7 +123,7 @@ class ir_sensor():
 		return GPIO.input(self.pin)
 
 
-class ():
+class servo ():
 	'''
 	The servo class creates servo object. 
 	e.x. servo_1  = servo(pin)  	
