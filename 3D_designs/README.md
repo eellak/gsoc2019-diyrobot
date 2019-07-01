@@ -1,6 +1,6 @@
 # The designs of the DIY-Robot kit
 
-Here you can find all the stl files for the kit also images and instructions of all the parts.
+Here you can find all the stl files for the kit also images and instructions of all the parts. 
 
 * Socket System templates 
   * Connection System between components blocks :white_check_mark:
@@ -11,7 +11,7 @@ Here you can find all the stl files for the kit also images and instructions of 
   * Top part :white_check_mark:
   * Bottom part :white_check_mark:
 * Main body 
-  * Top part :warning:
+  * Top part :white_check_mark:
   * Bottom part :white_check_mark:
 * Boards modules
   * Raspberry Pi 3 self lock base with male socket :white_check_mark:
@@ -23,13 +23,12 @@ Here you can find all the stl files for the kit also images and instructions of 
   * 3 Wire socket :warning:
   * 2 Wire socket  :construction:
 * Servo Blocks
-  * SG-5010 Servo :warning:
+  * SG-5010 Servo :white_check_mark:
   * NG-90 Microservo :construction:
 * Arm parts
-  * Rotation base :warning:
-  * Arm extension servo head socket :warning:
-  * Arm extension free rotation socket :warning:
-  * Robotic Arm Gripper :warning:
+  * Rotation base :white_check_mark:
+  * Arm extension servo head socket :white_check_mark:
+  * Robotic Arm Gripper :white_check_mark:
 * Sensors Blocks
   * Raspberry Pi Camera Block :white_check_mark:
   * Ultrasonic sensor HC-SR04 :white_check_mark:
