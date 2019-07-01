@@ -8,6 +8,7 @@ Here you can find all the needed files (python librarys, bash scripts and instal
   * Optical odometer class :white_check_mark:
   * Obstacle ir sensor  class :white_check_mark:
   * Servo motor class :white_check_mark:  
+  * Nokia 5110 screen :white_check_mark:  
   
 
 

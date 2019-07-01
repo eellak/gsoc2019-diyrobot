@@ -1,9 +1,68 @@
 import time
 import RPi.GPIO as GPIO
 import math
-GPIO.setmode(GPIO.BOARD)
+import time
+import Adafruit_Nokia_LCD as LCD
+import Adafruit_GPIO.SPI as SPI
+from PIL import ImageFont,ImageDraw,Image
+from netifaces import interfaces, ifaddresses, AF_INET
 
+class screen():
+	def __init__(self,SCLK = 21,DIN = 20,DC = 16,RST =7,CS = 12):
+		self.SCLK = SCLK
+		self.DIN = DIN
+		self.DC = DC
+		self.RST = RST
+		self.CS = CS
+		self.disp = LCD.PCD8544(DC, RST, SCLK, DIN, CS)
+		self.disp.begin(contrast=60)
+		self.font = ImageFont.load_default() #ImageFont.truetype('Minecraftia.ttf', 8)
+		self.clear_scrn()
+		self.empty_canvas()
 
+	def clear_scrn(self):
+		self.disp.clear()
+		self.disp.display()
+	def empty_canvas(self):
+		self.canvas= Image.new('1', (LCD.LCDWIDTH, LCD.LCDHEIGHT))
+		self.draw = ImageDraw.Draw(self.canvas)
+		self.draw.rectangle((0,0,LCD.LCDWIDTH,LCD.LCDHEIGHT), outline=255, fill=255)
+
+	def show_text(self,text,x=0,y=0):
+		self.draw.text((x,y),text, font=self.font)
+
+	def show_canvas(self):
+		self.disp.image(self.canvas)
+		self.disp.display()
+	def ip_screen(self):
+		self.clear_scrn()
+		self.empty_canvas()
+		self.show_text("Proteas Robot")
+		ipl = get_ip()
+		self.show_text("Connect to:",0,9)
+		self.show_text("http://",0,19)
+		self.show_text(ipl[-1],0,29)
+		self.show_text(":8080",0,39)
+		self.show_canvas()
+		
+	def print_text(self,text_list):
+		self.clear_scrn()
+		self.empty_canvas()
+		posy = 0
+		for i in range(0,5):	
+			temp  = text_list[i]
+			if isinstance(temp,int) or isinstance(temp,float):
+				temp = str(temp)
+			self.show_text(temp,0,posy)
+			posy += 9
+		self.show_canvas()
+	def show_image(self,path):
+		path = "images/" +path		
+		self.clear_scrn()
+		im = Image.open(path)
+		self.canvas = im.resize((LCD.LCDWIDTH, LCD.LCDHEIGHT), Image.ANTIALIAS).convert('1')
+		self.show_canvas()
+	
 class buzzer():
 	'''
 	The buzzer class creates buzzer object. 
@@ -75,6 +134,8 @@ class motor():
 		self.mot.ChangeDutyCycle(0)
 
 	
+
+
 class odometer():
 	'''
 	The odometer class creates ododmeters object. 
@@ -109,7 +170,7 @@ class odometer():
 		distance = revolutions * circumference		
 		return round(distance,precision)
 	def reset(self):
-		self.steps = 0
+		self.steps = 0		
 		
 class ir_sensor():
 	'''
@@ -140,12 +201,23 @@ class servo ():
 			self.sr_mot.ChangeDutyCycle(self.claculate_pwm(angle))
 	def claculate_pwm(self,angle):
 		return (angle/18.0) + 2.5
-		
+
+def start_lib():
+	GPIO.setmode(GPIO.BCM)
+	
+	
+def get_ip():
+	ip_list = []
+	for ifaceName in interfaces():
+		addresses = [i['addr'] for i in ifaddresses(ifaceName).setdefault(AF_INET, [{'addr':'No IP addr'}] )]
+		print(addresses[0])
+		ip_list.append(addresses[0])
+	return ip_list		
 		
 def clean():
 	'''
 	This function clean up all the parameter for every gpio on RPi. 	
 	'''
 	GPIO.cleanup()
-	GPIO.setmode(GPIO.BOARD)
+
 
