@@ -1,7 +1,7 @@
 # The mind of the DIY-Robot kit
 
 Here you can find all the needed files (python librarys, bash scripts and installation instructions) for a smooth deployment.
-![prog stuck](./assets/images/prog_stuck.png)
+![prog stuck](../assets/images/prog_stuck.png)
 An overview of my programming stuck.
 
 * Python robot library :warning:
