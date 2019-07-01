@@ -1,7 +1,7 @@
 # The designs of the DIY-Robot kit
 
 Here you can find all the stl files for the kit also images and instructions of all the parts. 
-
+![components](../assets/images/components.png)
 * Socket System templates 
   * Connection System between components blocks :white_check_mark:
   * Lock System between for components blocks :white_check_mark:
