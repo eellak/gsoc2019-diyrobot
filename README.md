@@ -5,7 +5,16 @@ ___
 With that project I will design an easy to assembly and program robot. The designs will be 3D printable and
 all the electronics parts will be easy to find in any electronic equipment store. I will use the Raspberry Pi 3+ as main computer with Rasbian operating system combined with Jupyter Notebook as interface.
 
+## So far
+___
+The Phase 1 of the project completed and the Proteas modular robot borned. Proteas robot is have a high modular design 
+with the capability to re-arrange the components with many ways. 
 
+![simple mode](assets/images/simple.png)
+![four leg mode](assets/images/4leg.png)
+![advanced mode](assets/images/advance.png)
+
+Three of many possible modes of the robot.
 ## :trophy: Project goals 
 ___
 The main goal of the project is to provide an easy to use tool for the educators community as alternative to expensive commercial kits. The same time that project gives the opportunity to everyone to create a robot at home. 
