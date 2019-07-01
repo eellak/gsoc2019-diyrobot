@@ -7,8 +7,9 @@ all the electronics parts will be easy to find in any electronic equipment store
 
 ## So far
 ___
-The Phase 1 of the project completed and the Proteas modular robot borned. Proteas robot is have a high modular design 
-with the capability to re-arrange the components with many ways. 
+The Phase 1 of the project completed and the Proteas modular robot borned. Proteas robot have a high modular design 
+with the capability to re-arrange the components with many ways and the same time offers stable and quick assembly
+without tools. 
 
 ![simple mode](assets/images/simple.png)
 ![four leg mode](assets/images/4leg.png)
