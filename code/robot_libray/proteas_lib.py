@@ -2,11 +2,44 @@ import time
 import RPi.GPIO as GPIO
 import math
 import time
+import csv
 import Adafruit_Nokia_LCD as LCD
 import Adafruit_GPIO.SPI as SPI
 from PIL import ImageFont,ImageDraw,Image
 from netifaces import interfaces, ifaddresses, AF_INET
+import matplotlib.pyplot as plt
+from mpu6050 import mpu6050
 
+#General Abstract
+class robot_2w():
+	def __init__(self):
+		start_lib()
+		self.motor_a = motor(11,12,13)
+		self.motor_b = motor(11,12,13)
+		self.odometer_a = odometer(14)
+		self.odometer_b = odometer(14)
+	def forward(self):
+		self.motor_a.move()
+		self.motor_b.move()
+	def reverse(self):
+		self.motor_a.move("reverse")
+		self.motor_b.move("reverse")
+	def rotate_right(self):
+		self.motor_a.move()
+		self.motor_b.move("reverse")
+		time.sleep(0.5)		
+	def rotate_left(self):
+		self.motor_a.move("reverse")
+		self.motor_b.move()	
+		time.sleep(0.5)	
+	def stop(self):
+		self.motor_a.stop()
+		self.motor_b.stop()
+		
+	
+	
+
+# Hardware section
 class screen():
 	def __init__(self,SCLK = 21,DIN = 20,DC = 16,RST =7,CS = 12):
 		self.SCLK = SCLK
@@ -63,6 +96,38 @@ class screen():
 		self.canvas = im.resize((LCD.LCDWIDTH, LCD.LCDHEIGHT), Image.ANTIALIAS).convert('1')
 		self.show_canvas()
 	
+	
+class accelerometer():
+	def __init__(self):
+		self.sensor = mpu6050(0x68)
+	def get_acceleration(self,dimension = "all" ):
+		accel = self.sensor.get_accel_data()
+		if dimension == "all":
+			return accel
+		elif dimension == "x" or dimension == "y" or dimension == "z":
+			return accel[dimension]
+		else:
+			print("Dimension not recognized!!")
+			return 0
+	def get_gyro(self,dimension = "all" ):
+		gyro = self.sensor.get_gyro_data()
+		tx = gyro["x"]
+		ty = gyro["y"]
+		tz = gyro["z"]
+		gyro["x"]= math.radians(math.atan2(-ty, -tz)+math.pi)
+		gyro["y"]= math.radians(math.atan2(-tx, -tz)+math.pi)
+		gyro["z"]= math.radians(math.atan2(-ty, -tx)+math.pi)
+		if dimension == "all":
+			return gyro
+		elif dimension == "x" or dimension == "y" or dimension == "z":
+			return gyro[dimension]
+		else:
+			print("Dimension not recognized!!")
+			return 0
+		
+		
+		
+		
 class buzzer():
 	'''
 	The buzzer class creates buzzer object. 
@@ -190,6 +255,7 @@ class servo ():
 	e.x. servo_1  = servo(pin)  	
 	'''
 	def __init__(self,pin):
+		
 		self.pin = pin
 		GPIO.setup(pin,GPIO.OUT)
 		self.sr_mot = GPIO.PWM(pin,50)		
@@ -202,9 +268,99 @@ class servo ():
 	def claculate_pwm(self,angle):
 		return (angle/18.0) + 2.5
 
+
+# Software section
+class PID():
+	''' 
+	PID controller Class for precise movement
+	e.x. mot_pid = PID(P parameter,I parameter,K parameter)
+	'''
+	def __init__(self,KP,KI,KD):
+		self.error_prior = 0
+		self.integral = 0
+		self.KP = KP
+		self.KI = KI
+		self.KD = KD 
+		
+	def pid_calc(self,desired_value,actual_value,start_time,end_time):        
+		error = desired_value - actual_value
+		iteration_time = end_time - start_time
+		self.integral = self.integral + (error*iteration_time)
+		derivative = (error - self.error_prior)/iteration_time
+		output = self.KP*error + self.KI*self.integral + self.KD*derivative
+		self.error_prior = error        
+		return output
+	def reset_pid(self):
+		self.error_prior = 0
+		self.integral = 0
+	def update_pid(self,KP,KI,KD):
+		self.KP = KP
+		self.KI = KI
+		self.KD = KD
+		self.error_prior = 0
+		self.integral = 0		
+
+class data_loger():
+	def __init__(self,title = "New Graph"):		
+		self.data = []
+		self.title = title
+	def store_value(self,x,y):
+		self.data.append([x,y])
+	def clean_data(self):
+		self.data = []
+	def get_data(self):
+		return self.data
+	def get_size(self):
+		print("The size of data table is {}".format(len(self.data)))
+		return len(self.data)
+	def draw_graph(self,type = "line"):
+		if type == "line" or type == "points":
+			x, y = zip(*self.data)
+			if type == "line":
+				plt.plot(x,y,linewidth=4,label=self.title)
+			elif type == "points":
+				plt.plot(x, y, 'ro')
+			plt.show()
+		else:
+			print("Unkhown graph type")
+	def save_image(self,output="figure.png"):
+		x, y = zip(*self.data)
+		plt.plot(x,y,linewidth=4,label=self.title)
+		print("The graph saves as {}".format(output))
+		plt.savefig(output)
+	def save_pdf(self,output="figure.pdf"):
+		x, y = zip(*self.data)
+		plt.plot(x,y,linewidth=4,label=self.title)
+		print("The graph saves as {}".format(output))
+		plt.savefig(output)
+		
+class timer():
+	def __init__(self):
+		self.start = 0
+	def start_timer(self):
+		self.start = time.time()
+	def elasped(self):
+		if self.start == 0:
+			print("Timer not started")
+		else:
+			dif = time.time() - self.start
+			print("The elasped time in sec is {}".format(dif))
+	def get_elapsed(self):
+		if self.start == 0:
+			return 0
+		else:
+			return time.time() - self.start
+		
+		
+#General functions	
 def start_lib():
 	GPIO.setmode(GPIO.BCM)
 	
+def clean():
+	'''
+	This function clean up all the parameter for every gpio on RPi. 	
+	'''
+	GPIO.cleanup()	
 	
 def get_ip():
 	ip_list = []
@@ -213,11 +369,14 @@ def get_ip():
 		print(addresses[0])
 		ip_list.append(addresses[0])
 	return ip_list		
-		
-def clean():
-	'''
-	This function clean up all the parameter for every gpio on RPi. 	
-	'''
-	GPIO.cleanup()
+
+def make_csv(data_list,filename="data.csv"):
+	with open(filename, "w",newline='') as file:
+		csv.register_dialect('myDialect',delimiter = ',')        
+		writer = csv.writer(file,dialect='myDialect')
+		for item in data_list:
+			writer.writerow(item)
+	print("Csv with name {} created.".format(filename))
+
 
 
