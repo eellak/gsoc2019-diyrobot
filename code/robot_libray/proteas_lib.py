@@ -14,10 +14,10 @@ from mpu6050 import mpu6050
 class robot_2w():
 	def __init__(self):
 		start_lib()
-		self.motor_a = motor(11,12,13)
-		self.motor_b = motor(11,12,13)
-		self.odometer_a = odometer(14)
-		self.odometer_b = odometer(14)
+		self.motor_a = motor(17,27,22)
+		self.motor_b = motor(10,9,11)
+		self.odometer_a = odometer(13)
+		self.odometer_b = odometer(6)
 	def forward(self):
 		self.motor_a.move()
 		self.motor_b.move()
@@ -35,11 +35,54 @@ class robot_2w():
 	def stop(self):
 		self.motor_a.stop()
 		self.motor_b.stop()
+	def set_speed(self,speed=90):
+		self.motor_a.set_speed(speed)
+		self.motor_b.set_speed(speed)
+	def count_revolutions(self):
+		self.odometer_a.count_revolutions()
+		self.odometer_b.count_revolutions()
+
+	def get_steps(self):
+		a = self.odometer_a.get_steps()
+		b = self.odometer_b.get_steps()
+		return (a+b)/2
+	def get_revolutions(self):
+		a = self.odometer_a.get_revolutions()
+		b = self.odometer_b.get_revolutions()
+		return (a+b)/2
+	def get_distance(self):
+		a = self.odometer_a.get_distance()
+		b = self.odometer_b.get_distance()	
+		return (a+b)/2
+	def reset_odometer(self):
+		self.odometer_a.reset()
+		self.odometer_b.reset()	
 		
-	
-	
 
 # Hardware section
+class ultrasonic_sensor():
+	def __init__(self,echo_pin,trig_pin):
+		self.echo_pin = echo_pin
+		self.trig_pin = trig_pin
+		GPIO.setup(self.echo_pin,GPIO.IN)
+		GPIO.setup(self.trig_pin,GPIO.OUT)
+		GPIO.output(self.trig_pin, False)
+	def get_distance(self):
+		GPIO.output(self.trig_pin, True)
+		time.sleep(0.00001)
+		GPIO.output(self.trig_pin, False)
+		while GPIO.input(self.echo_pin) == 0:
+			pulse_start = time.time()
+		while GPIO.input(self.echo_pin) == 1:
+			pulse_end = time.time()
+		pulse_duration = pulse_end - pulse_start
+		distance = pulse_duration-17150
+		distance = round(distance,2)
+		return distance
+		
+		
+		
+		
 class screen():
 	def __init__(self,SCLK = 21,DIN = 20,DC = 16,RST =7,CS = 12):
 		self.SCLK = SCLK
@@ -100,6 +143,7 @@ class screen():
 class accelerometer():
 	def __init__(self):
 		self.sensor = mpu6050(0x68)
+		self.gyroScale = 131
 	def get_acceleration(self,dimension = "all" ):
 		accel = self.sensor.get_accel_data()
 		if dimension == "all":
@@ -111,12 +155,6 @@ class accelerometer():
 			return 0
 	def get_gyro(self,dimension = "all" ):
 		gyro = self.sensor.get_gyro_data()
-		tx = gyro["x"]
-		ty = gyro["y"]
-		tz = gyro["z"]
-		gyro["x"]= math.radians(math.atan2(-ty, -tz)+math.pi)
-		gyro["y"]= math.radians(math.atan2(-tx, -tz)+math.pi)
-		gyro["z"]= math.radians(math.atan2(-ty, -tx)+math.pi)
 		if dimension == "all":
 			return gyro
 		elif dimension == "x" or dimension == "y" or dimension == "z":
@@ -216,7 +254,7 @@ class odometer():
 		self.steps = 0
 	def get_state(self):
 		return GPIO.input(self.pin)
-	def count_rotations(self):
+	def count_revolutions(self):
 		if self.get_state():
 			if not self.prev_pos:
 				self.prev_pos = True
@@ -229,7 +267,7 @@ class odometer():
 		return self.steps
 	def get_revolutions(self):
 		return self.steps/self.sensor_disc
-	def get_distance(self,wheel_diameter,precision = 2):
+	def get_distance(self,wheel_diameter=6.6,precision = 2):
 		circumference = wheel_diameter * math.pi
 		revolutions = self.steps/self.sensor_disc
 		distance = revolutions * circumference		
