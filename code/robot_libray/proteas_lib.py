@@ -113,8 +113,8 @@ class robot_speed_exp():
 		self.odometer_b = odometer(6)
 		self.accel  = accelerometer()
 		self.timer_1 = timer()
-		self.accel_log = data_loger()
-		self.speed_log = data_loger()		
+		self.accel_log = data_loger(title = "Acceleration Graph",plot_number=0)
+		self.speed_log = data_loger(title = "Speed Graph",plot_number=1)		
 	def forward(self):
 		self.motor_a.move()
 		self.motor_b.move()
@@ -146,7 +146,7 @@ class robot_speed_exp():
 		self.odometer_a.reset()
 		self.odometer_b.reset()	
 	def get_acceleration(self,dimension = "x"):
-		self.accel.get_acceleration(dimension = "x" )	
+		return self.accel.get_acceleration(dimension)	
 	def accel_speed_exp(self,distance=10,speed = 90):
 		print("Acceleration and Speed experiment")
 		self.set_speed(speed)
@@ -155,32 +155,38 @@ class robot_speed_exp():
 		self.reset_odometer()
 		self.timer_1.start_timer()
 		print("Robots Black Box recording started")
-		elasped_time = timer_1.get_elasped()
-		cur_accel = self.get_acceleration()
-		cur_speed = self.get_distance()/elasped_time
-		self.accel_log.store_value(cur_accel,elasped_time)
-		self.speed_log.store_value(cur_speed,elasped_time)
+		elapsed_time = self.timer_1.get_elapsed()
+		cur_accel = 0		
+		cur_speed = 0
+		self.accel_log.store_value(elapsed_time,cur_accel)
+		self.speed_log.store_value(elapsed_time,cur_speed)
 		time.sleep(0.5)
 		self.forward()
 		while self.get_distance()<distance:
 			self.count_revolutions()
 			print("Traveled distane {}".format(self.get_distance()))
-			elasped_time = timer_1.get_elasped()
-			cur_accel = self.get_acceleration():
-			cur_speed = self.get_distance()/elasped_time
-			self.accel_log.store_value(cur_accel,elasped_time)
-			self.speed_log.store_value(cur_speed,elasped_time)
+			elapsed_time = self.timer_1.get_elapsed()
+			
+			cur_accel = self.get_acceleration()
+			if self.get_distance() == 0:
+				cur_speed = 0
+			else:
+				cur_speed = self.get_distance()/elapsed_time
+			self.accel_log.store_value(elapsed_time,cur_accel)
+			self.speed_log.store_value(elapsed_time,cur_speed)
 		self.stop()
 		time.sleep(0.5)	
 		self.count_revolutions()
-		elasped_time = timer_1.get_elasped()
-		cur_accel = self.get_acceleration()
-		cur_speed = self.get_distance()/elasped_time
-		self.accel_log.store_value(cur_accel,elasped_time)
-		self.speed_log.store_value(cur_speed,elasped_time)
+		elapsed_time = self.timer_1.get_elapsed()
+		cur_accel = 0
+		cur_speed = 0
+		self.accel_log.store_value(elapsed_time,cur_accel)
+		self.speed_log.store_value(elapsed_time,cur_speed)
 		print("Experiment completed!")
+		print("Speed graph:")
 		self.speed_log.draw_graph()
-		self.accel_log.draw_graph()
+		print("Acceleration graph:")		
+		self.accel_log.draw_graph()	
 		
 class robot_line_follower():
 	'''
@@ -251,7 +257,7 @@ class gen_output():
 	set_on() set High the output pin
 	set_off() set Low the output pin		
 	'''
-	def __init__(self,pin):
+	def __init__(self,pin=5):
 		self.pin = pin
 		GPIO.setup(self.pin,GPIO.OUT)
 		GPIO.output(self.pin, False)
@@ -266,7 +272,7 @@ class gen_input():
 	Functions: 
 	get_state() return True/False		
 	'''
-	def __init__(self,pin):
+	def __init__(self,pin=4):
 		self.pin = pin
 		GPIO.setup(self.pin,GPIO.IN)
 	def get_state(self):
@@ -290,9 +296,9 @@ class ultrasonic_sensor():
 		GPIO.output(self.trig_pin, False)
 		StartTime = time.time()
 		StopTime = time.time()
-		while GPIO.input(GPIO_ECHO) == 0:
+		while GPIO.input(self.echo_pin) == 0:
 			StartTime = time.time()
-		while GPIO.input(GPIO_ECHO) == 1:
+		while GPIO.input(self.trig_pin) == 1:
 			StopTime = time.time()
 		TimeElapsed = StopTime - StartTime
 		distance = (TimeElapsed * 34300) / 2
@@ -563,9 +569,10 @@ class PID():
 		self.integral = 0		
 
 class data_loger():
-	def __init__(self,title = "New Graph"):		
+	def __init__(self,title = "New Graph",plot_number = 0):		
 		self.data = []
 		self.title = title
+		self.plt_number = plot_number
 	def store_value(self,x,y):
 		self.data.append([x,y])
 	def clean_data(self):
@@ -576,7 +583,9 @@ class data_loger():
 		print("The size of data table is {}".format(len(self.data)))
 		return len(self.data)
 	def draw_graph(self,type = "line"):
+		
 		if type == "line" or type == "points":
+			plt.figure(self.plt_number)
 			x, y = zip(*self.data)
 			if type == "line":
 				plt.plot(x,y,linewidth=4,label=self.title)
@@ -587,11 +596,13 @@ class data_loger():
 			print("Unkhown graph type")
 	def save_image(self,output="figure.png"):
 		x, y = zip(*self.data)
+		plt.figure(self.plt_number)
 		plt.plot(x,y,linewidth=4,label=self.title)
 		print("The graph saves as {}".format(output))
 		plt.savefig(output)
 	def save_pdf(self,output="figure.pdf"):
 		x, y = zip(*self.data)
+		plt.figure(self.plt_number)
 		plt.plot(x,y,linewidth=4,label=self.title)
 		print("The graph saves as {}".format(output))
 		plt.savefig(output)
@@ -601,19 +612,19 @@ class timer():
 	Class timer() 
 	Functions: 
 	start_timer() Start a timer
-	get_elapsed() Returns the elasped time between start time and that momment in sec
+	get_elapsed() Returns the elapsed time between start time and that momment in sec
 	'''
 
 	def __init__(self):
 		self.start = 0
 	def start_timer(self):
 		self.start = time.time()
-	def elasped(self):
+	def elapsed(self):
 		if self.start == 0:
 			print("Timer not started")
 		else:
 			dif = time.time() - self.start
-			print("The elasped time in sec is {}".format(dif))
+			print("The elapsed time in sec is {}".format(dif))
 	def get_elapsed(self):
 		if self.start == 0:
 			return 0
