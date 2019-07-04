@@ -22,6 +22,7 @@ Here you can find all the stl files for the kit also images and instructions of 
   * 4 Wire socket  :construction:
   * 3 Wire socket :warning:
   * 2 Wire socket  :construction:
+  * 8 Pin expansion suitable for GND and VCC  :white_check_mark:
 * Servo Blocks
   * SG-5010 Servo :white_check_mark:
   * NG-90 Microservo :construction:
