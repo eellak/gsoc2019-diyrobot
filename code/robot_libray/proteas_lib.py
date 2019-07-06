@@ -91,7 +91,6 @@ class robot_speed_exp():
 	Motor B : ENB = 10 , IN3 = 9 , IN4 = 11
 	Odometer A: pin = 13
 	Odometer B: pin = 6
-	MPU6050: SDA SCL connected
 	Functions:
 	forward() Makes robot move forward
 	reverse()  Makes robot move backyard
@@ -111,10 +110,9 @@ class robot_speed_exp():
 		self.motor_b = motor(10,9,11)
 		self.odometer_a = odometer(13)
 		self.odometer_b = odometer(6)
-		self.accel  = accelerometer()
 		self.timer_1 = timer()
 		self.accel_log = data_loger(title = "Acceleration Graph",plot_number=0)
-		self.speed_log = data_loger(title = "Speed Graph",plot_number=1)		
+		self.vel_log = data_loger(title = "Velocity Graph",plot_number=1)		
 	def forward(self):
 		self.motor_a.move()
 		self.motor_b.move()
@@ -139,52 +137,68 @@ class robot_speed_exp():
 		b = self.odometer_b.get_revolutions()
 		return (a+b)/2
 	def get_distance(self):
-		a = self.odometer_a.get_distance()
-		b = self.odometer_b.get_distance()	
+		a = self.odometer_a.get_distance(precision = 10)
+		b = self.odometer_b.get_distance(precision = 10)	
 		return (a+b)/2
 	def reset_odometer(self):
 		self.odometer_a.reset()
 		self.odometer_b.reset()	
 	def get_acceleration(self,dimension = "x"):
 		return self.accel.get_acceleration(dimension)	
-	def accel_speed_exp(self,distance=10,speed = 90):
+	def calculate_velocity(self,nowt,prevt,pos2,pos1):
+		velocity = (pos2-pos1)/(nowt - prevt)
+			
+		return velocity
+	def calculate_accel(self,nowt,prevt,vel2,vel1):
+		aceeleration = (vel2-vel1)/(nowt - prevt)		
+		return aceeleration
+	def accel_velocity_exp(self,distance=10,speed = 90):
 		print("Acceleration and Speed experiment")
 		self.set_speed(speed)
-		self.speed_log.clean_data()
+		self.vel_log.clean_data()
 		self.accel_log.clean_data()
 		self.reset_odometer()
 		self.timer_1.start_timer()
 		print("Robots Black Box recording started")
-		elapsed_time = self.timer_1.get_elapsed()
-		cur_accel = 0		
-		cur_speed = 0
-		self.accel_log.store_value(elapsed_time,cur_accel)
-		self.speed_log.store_value(elapsed_time,cur_speed)
+		self.accel_log.store_value(0,0)
+		self.vel_log.store_value(0,0)
 		time.sleep(0.5)
 		self.forward()
+		prev_pos = 0 
+		prev_vel = 0
+		prev_time = 0
+		cur_vel = 0
+		prev_accel = 0
 		while self.get_distance()<distance:
 			self.count_revolutions()
 			print("Traveled distane {}".format(self.get_distance()))
-			elapsed_time = self.timer_1.get_elapsed()
-			
-			cur_accel = self.get_acceleration()
-			if self.get_distance() == 0:
-				cur_speed = 0
+			elapsed_time = self.timer_1.get_elapsed()	
+			cur_pos = self.get_distance()			
+						
+			calcu_vel = self.calculate_velocity(elapsed_time,prev_time,cur_pos,prev_pos)
+			if calcu_vel != 0:
+				cur_vel = calcu_vel
+				cur_accel = self.calculate_accel(elapsed_time,prev_time,cur_vel,prev_vel)#self.get_acceleration()
+				prev_accel = cur_accel
 			else:
-				cur_speed = self.get_distance()/elapsed_time
+				cur_accel = prev_accel
+			prev_vel = cur_vel
+			prev_pos = cur_pos
+			prev_time = elapsed_time
 			self.accel_log.store_value(elapsed_time,cur_accel)
-			self.speed_log.store_value(elapsed_time,cur_speed)
+			self.vel_log.store_value(elapsed_time,cur_vel)
+			#time.sleep(0.01)
 		self.stop()
 		time.sleep(0.5)	
 		self.count_revolutions()
 		elapsed_time = self.timer_1.get_elapsed()
 		cur_accel = 0
-		cur_speed = 0
+		cur_vel = 0
 		self.accel_log.store_value(elapsed_time,cur_accel)
-		self.speed_log.store_value(elapsed_time,cur_speed)
+		self.vel_log.store_value(elapsed_time,cur_vel)
 		print("Experiment completed!")
-		print("Speed graph:")
-		self.speed_log.draw_graph()
+		print("Velocity graph:")
+		self.vel_log.draw_graph()
 		print("Acceleration graph:")		
 		self.accel_log.draw_graph()	
 		
@@ -211,19 +225,22 @@ class robot_line_follower():
 		self.motor_b = motor(10,9,11)
 		self.sensor_A = gen_input(19)
 		self.sensor_B = gen_input(26)
-	def forward(self):
-		self.motor_a.move()
-		self.motor_b.move()
+	def forward(self,speed):
+		self.control_speed(speed)
+		self.motor_a.move("forward")
+		self.motor_b.move("forward")
 	def reverse(self):
 		self.motor_a.move("reverse")
 		self.motor_b.move("reverse")
-	def rotate_right(self,delay = 0.01):
-		self.motor_a.move()
-		sself.motor_b.stop()
+	def rotate_right(self,speed=100,delay = 0.01):
+		self.control_speed(speed)
+		self.motor_a.move("forward")
+		self.motor_b.move("reverse")
 		time.sleep(delay)		
-	def rotate_left(self,delay=0.01):
-		self.motor_a.stop()
-		self.motor_b.move()	
+	def rotate_left(self,speed=100,delay=0.01):
+		self.control_speed(speed)
+		self.motor_a.move("reverse")
+		self.motor_b.move("forward")	
 		time.sleep(delay)	
 	def stop(self):
 		self.motor_a.stop()
@@ -234,16 +251,20 @@ class robot_line_follower():
 	def control_speed(self,speed=90):
 		self.motor_a.control_speed(speed)
 		self.motor_b.control_speed(speed)
-	def line_follow(speed=90):
+	def line_follow(self,speed=90):
 		print("Line follower robot start")
-		self.set_speed(speed=90)
-		while not self.sensor_A.get_state()and not self.sensor_B.get_state():
-			if self.sensor_A.get_state() and not self.sensor_B.get_state():
+		self.set_speed(speed)
+		while True:
+			if not self.sensor_A.get_state() and  self.sensor_B.get_state():
+				self.stop()
 				self.rotate_right()				
-			elif not self.sensor_A.get_state() and self.sensor_B.get_state():
+			elif  self.sensor_A.get_state() and not self.sensor_B.get_state():
+				self.stop()
 				self.rotate_left()	
+			elif  self.sensor_A.get_state() and  self.sensor_B.get_state():
+				break
 			else:
-				self.forward()
+				self.forward(speed)
 		self.stop()
 		print("Robot finished")
 		
@@ -452,6 +473,7 @@ class motor():
 		if speed < 0 or speed > 100:
 			print("The motor speed is a percentage of total motor power. Accepted values 0-100.")
 		else:
+			self.dc = speed
 			self.mot.ChangeDutyCycle(speed)
 	def set_speed(self,speed):
 		if speed < 0 or speed > 100:
@@ -512,7 +534,8 @@ class odometer():
 		circumference = wheel_diameter * math.pi
 		revolutions = self.steps/self.sensor_disc
 		distance = revolutions * circumference		
-		return round(distance,precision)
+		#return round(distance,precision)
+		return(distance)
 	def reset(self):
 		self.steps = 0		
 		
