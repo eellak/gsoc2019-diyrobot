@@ -9,6 +9,7 @@ from PIL import ImageFont,ImageDraw,Image
 from netifaces import interfaces, ifaddresses, AF_INET
 import matplotlib.pyplot as plt
 from mpu6050 import mpu6050
+from hmc5883l import HMC5883L
 
 #General Abstract
 class robot_simple_control():
@@ -38,6 +39,7 @@ class robot_simple_control():
 		self.motor_b = motor(10,9,11)
 		self.odometer_a = odometer(13)
 		self.odometer_b = odometer(6)
+		
 
 	def forward(self):
 		self.motor_a.move()
@@ -154,53 +156,59 @@ class robot_speed_exp():
 		return aceeleration
 	def accel_velocity_exp(self,distance=10,speed = 90):
 		print("Acceleration and Speed experiment")
-		self.set_speed(speed)
-		self.vel_log.clean_data()
-		self.accel_log.clean_data()
-		self.reset_odometer()
-		self.timer_1.start_timer()
-		print("Robots Black Box recording started")
-		self.accel_log.store_value(0,0)
-		self.vel_log.store_value(0,0)
-		time.sleep(0.5)
-		self.forward()
-		prev_pos = 0 
-		prev_vel = 0
-		prev_time = 0
-		cur_vel = 0
-		prev_accel = 0
-		while self.get_distance()<distance:
+		try:
+			self.set_speed(speed)
+			self.vel_log.clean_data()
+			self.accel_log.clean_data()
+			self.reset_odometer()
+			self.timer_1.start_timer()
+			print("Robots Black Box recording started")
+			self.accel_log.store_value(0,0)
+			self.vel_log.store_value(0,0)
+			time.sleep(0.5)
+			self.forward()
+			prev_pos = 0 
+			prev_vel = 0
+			prev_time = 0
+			cur_vel = 0
+			prev_accel = 0
+			while self.get_distance()<distance:
+				self.count_revolutions()
+				print("Traveled distane {}".format(self.get_distance()))
+				elapsed_time = self.timer_1.get_elapsed()	
+				cur_pos = self.get_distance()
+				calcu_vel = self.calculate_velocity(elapsed_time,prev_time,cur_pos,prev_pos)
+				print(calcu_vel)
+				if calcu_vel != 0:
+					cur_vel = calcu_vel
+					cur_accel = self.calculate_accel(elapsed_time,prev_time,cur_vel,prev_vel)#self.get_acceleration()
+					prev_accel = cur_accel
+				else:
+					cur_accel = prev_accel
+				prev_vel = cur_vel
+				prev_pos = cur_pos
+				prev_time = elapsed_time
+				self.accel_log.store_value(elapsed_time,cur_accel)
+				self.vel_log.store_value(elapsed_time,cur_vel)
+				#time.sleep(0.01)
+			self.stop()
+			time.sleep(0.5)	
 			self.count_revolutions()
-			print("Traveled distane {}".format(self.get_distance()))
-			elapsed_time = self.timer_1.get_elapsed()	
-			cur_pos = self.get_distance()			
-						
-			calcu_vel = self.calculate_velocity(elapsed_time,prev_time,cur_pos,prev_pos)
-			if calcu_vel != 0:
-				cur_vel = calcu_vel
-				cur_accel = self.calculate_accel(elapsed_time,prev_time,cur_vel,prev_vel)#self.get_acceleration()
-				prev_accel = cur_accel
-			else:
-				cur_accel = prev_accel
-			prev_vel = cur_vel
-			prev_pos = cur_pos
-			prev_time = elapsed_time
+			elapsed_time = self.timer_1.get_elapsed()
+			cur_accel = 0
+			cur_vel = 0
 			self.accel_log.store_value(elapsed_time,cur_accel)
 			self.vel_log.store_value(elapsed_time,cur_vel)
-			#time.sleep(0.01)
-		self.stop()
-		time.sleep(0.5)	
-		self.count_revolutions()
-		elapsed_time = self.timer_1.get_elapsed()
-		cur_accel = 0
-		cur_vel = 0
-		self.accel_log.store_value(elapsed_time,cur_accel)
-		self.vel_log.store_value(elapsed_time,cur_vel)
-		print("Experiment completed!")
-		print("Velocity graph:")
-		self.vel_log.draw_graph()
-		print("Acceleration graph:")		
-		self.accel_log.draw_graph()	
+			print("Experiment completed!")
+			print("Velocity graph:")
+			self.vel_log.draw_graph()
+			print("Acceleration graph:")		
+			self.accel_log.draw_graph()
+		except KeyboardInterrupt:
+			print("Experiment canceled by user")
+		finally:
+			self.stop()
+			print("Robot finished")
 		
 class robot_line_follower():
 	'''
@@ -232,12 +240,12 @@ class robot_line_follower():
 	def reverse(self):
 		self.motor_a.move("reverse")
 		self.motor_b.move("reverse")
-	def rotate_right(self,speed=100,delay = 0.01):
+	def rotate_right(self,speed=90,delay = 0.01):
 		self.control_speed(speed)
 		self.motor_a.move("forward")
 		self.motor_b.move("reverse")
 		time.sleep(delay)		
-	def rotate_left(self,speed=100,delay=0.01):
+	def rotate_left(self,speed=90,delay=0.01):
 		self.control_speed(speed)
 		self.motor_a.move("reverse")
 		self.motor_b.move("forward")	
@@ -251,22 +259,28 @@ class robot_line_follower():
 	def control_speed(self,speed=90):
 		self.motor_a.control_speed(speed)
 		self.motor_b.control_speed(speed)
-	def line_follow(self,speed=90):
+	def line_follow(self,speed=60):
 		print("Line follower robot start")
-		self.set_speed(speed)
-		while True:
-			if not self.sensor_A.get_state() and  self.sensor_B.get_state():
-				self.stop()
-				self.rotate_right()				
-			elif  self.sensor_A.get_state() and not self.sensor_B.get_state():
-				self.stop()
-				self.rotate_left()	
-			elif  self.sensor_A.get_state() and  self.sensor_B.get_state():
-				break
-			else:
-				self.forward(speed)
-		self.stop()
-		print("Robot finished")
+		try:
+			self.set_speed(speed)
+			while True:
+				if not self.sensor_A.get_state() and  self.sensor_B.get_state():
+					self.stop()
+					self.rotate_right()				
+				elif  self.sensor_A.get_state() and not self.sensor_B.get_state():
+					self.stop()
+					self.rotate_left()	
+				elif  self.sensor_A.get_state() and  self.sensor_B.get_state():
+					break
+				else:
+					self.forward(speed)
+				
+		except KeyboardInterrupt:
+			print("Experiment canceled by user")
+		finally:
+			self.stop()
+			print("Robot finished")
+		
 		
 
 		
@@ -298,6 +312,20 @@ class gen_input():
 		GPIO.setup(self.pin,GPIO.IN)
 	def get_state(self):
 		return GPIO.input(self.pin)	
+		
+class compass():
+	'''
+	Class compass() 
+	Functions: 		
+	'''
+	def __init__(self):
+		self.comp = HMC5883L(gauss=0.88, declination=(-2, 5))
+	def get_heading(self):
+		return self.comp.heading()
+	def get_data(self):
+		return self.comp.read_data()
+		
+		
 		
 class ultrasonic_sensor():
 	'''
@@ -661,6 +689,7 @@ def start_lib():
 	This function sets the GPIO pins to input output mode with GPIO number syntax. 	
 	'''
 	GPIO.setmode(GPIO.BCM)
+	GPIO.setwarnings(False)
 	
 def clean():
 	'''
