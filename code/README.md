@@ -12,8 +12,17 @@ An overview of my programming stuck.
   * Obstacle ir sensor  class :white_check_mark:
   * Servo motor class :white_check_mark:  
   * Nokia 5110 screen :white_check_mark:  
+  * MPU650 accelerometer :white_check_mark: 
+  * HMC5883L compass :white_check_mark:
+  * Ultrasonic sensor :white_check_mark:
+  * General input class (buttons and every sensor with digital output e.x. ligth sensor) :white_check_mark:
+  * General output class (led and every sensor with digital input e.x. relay shield) :white_check_mark:
+  * Log data class store data for plot or edit :white_check_mark:
+  * Make csv class save data mesurment to csv :white_check_mark:
   
-
+* Special Classes for educational examples
+  * Acceleration and Velocity expiriment with graphs
+  * Line follower robot
 
 ## :exclamation: **Important Notice** :exclamation:
 :cop: The robot fully comply with the three laws of robotics:
