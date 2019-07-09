@@ -10,7 +10,7 @@ from netifaces import interfaces, ifaddresses, AF_INET
 import matplotlib.pyplot as plt
 from mpu6050 import mpu6050
 from hmc5883l import HMC5883L
-
+from random import randrange
 #General Abstract
 class robot_simple_control():
 	'''
@@ -39,8 +39,6 @@ class robot_simple_control():
 		self.motor_b = motor(10,9,11)
 		self.odometer_a = odometer(13)
 		self.odometer_b = odometer(6)
-		
-
 	def forward(self):
 		self.motor_a.move()
 		self.motor_b.move()
@@ -84,6 +82,111 @@ class robot_simple_control():
 	def reset_odometer(self):
 		self.odometer_a.reset()
 		self.odometer_b.reset()	
+class robot_collision_avoidance():
+	'''
+	Class robot_simple_control() 
+	Default pin connections:
+	Motor A : ENA = 17 , IN1 = 27 , IN2 = 22
+	Motor B : ENB = 10 , IN3 = 9 , IN4 = 11
+	Motor B : ENB = 10 , IN3 = 9 , IN4 = 11
+	Odometer A: pin = 13
+	Odometer B: pin = 6
+	Functions:
+	forward() Makes robot move forward
+	reverse()  Makes robot move backyard	
+	rotate_right(delay=0.5) Rotate robot right for 0.5
+	rotate_left(delay=0.5) Rotate robot left for 0.5
+	set_speed(speed=90) Sets robot speed to 0-100%
+	control_speed(speed=90) Sets robot speed real time to 0-100%
+	count_revolutions()  Starts the revolutions counter of two sensors
+	get_revolutions() Returns the average revolutions between the two wheels
+	get_distance() Returns the average distance in cm between the two wheels
+	get_steps() Returns the average steps between the two wheels
+	get_obstacle_distance() Returns the distance of the nearest obstacle
+	reset_odometer() Resets the steps counters of two wheels
+	start_moving(self,speed = 60) The robot start moving randomly in the room and try to avoid ostacles
+	'''
+	def __init__(self):
+		start_lib()
+		self.motor_a = motor(17,27,22)
+		self.motor_b = motor(10,9,11)
+		self.odometer_a = odometer(13)
+		self.odometer_b = odometer(6)
+		self.obstacle = ultrasonic_sensor()
+	def forward(self):
+		self.motor_a.move()
+		self.motor_b.move()
+	def reverse(self):
+		self.motor_a.move("reverse")
+		self.motor_b.move("reverse")
+	def rotate_right(self,delay = 0.1):
+		self.motor_a.move()
+		self.motor_b.move("reverse")
+		time.sleep(delay)		
+	def rotate_left(self,delay=0.1):
+		self.motor_a.move("reverse")
+		self.motor_b.move()	
+		time.sleep(delay)	
+	def stop(self):
+		self.motor_a.stop()
+		self.motor_b.stop()
+	def set_speed(self,speed=90):
+		self.motor_a.set_speed(speed)
+		self.motor_b.set_speed(speed)
+	def control_speed(self,speed=90):
+		self.motor_a.control_speed(speed)
+		self.motor_b.control_speed(speed)
+		
+	def count_revolutions(self):
+		self.odometer_a.count_revolutions()
+		self.odometer_b.count_revolutions()
+		
+	def get_steps(self):
+		a = self.odometer_a.get_steps()
+		b = self.odometer_b.get_steps()
+		return (a+b)/2
+	def get_revolutions(self):
+		a = self.odometer_a.get_revolutions()
+		b = self.odometer_b.get_revolutions()
+		return (a+b)/2
+	def get_distance(self):
+		a = self.odometer_a.get_distance()
+		b = self.odometer_b.get_distance()	
+		return (a+b)/2
+	def reset_odometer(self):
+		self.odometer_a.reset()
+		self.odometer_b.reset()	
+	def get_obstacle(self):
+		return self.obstacle.get_distance()
+	def start_moving(self,speed = 60):
+		try:
+			
+			while True:
+				self.set_speed(speed)
+				if self.get_obstacle() > 55 and self.get_obstacle() < 2000:
+					self.forward()
+					print("Forward")
+				elif self.get_obstacle() <= 20 or self.get_obstacle() > 2000 : 
+					print("Reverse")
+					self.reverse()
+				else:
+					direction = randrange(1)
+					self.set_speed(80)
+					while self.get_obstacle() <= 55:
+						if direction == 1:
+							print("Right")
+							self.rotate_right()
+							
+						else:
+							print("Left")
+							self.rotate_left()
+				time.sleep(0.01)
+		except KeyboardInterrupt:
+			print("Example stoped by user")
+		finally:
+			self.stop()
+			print("Robot finished")
+		
 		
 class robot_speed_exp():
 	'''
@@ -103,8 +206,7 @@ class robot_speed_exp():
 	get_distance() Returns the average distance in cm between the two wheels
 	get_steps() Returns the average steps between the two wheels
 	reset_odometer() Resets the steps counters of two wheels
-	get_acceleration(dimension="x") Returns the acceleration on x axis
-	accel_speed_exp(distance=10,speed = 90) The robot start moving in straight line and log speed and acceleration, after a 10 cm distance returns speed and acceleration graphs
+	accel_velocity_exp(distance=10,speed = 90) The robot start moving in straight line and log velocity and acceleration, after a 10 cm distance returns speed and acceleration graphs
 	'''
 	def __init__(self):
 		start_lib()
@@ -340,13 +442,15 @@ class ultrasonic_sensor():
 		GPIO.setup(self.trig_pin,GPIO.OUT)
 		GPIO.output(self.trig_pin, False)
 	def get_distance(self):
+		
 		GPIO.output(self.trig_pin, True)
 		time.sleep(0.00001)
 		GPIO.output(self.trig_pin, False)
 		StartTime = time.time()
 		StopTime = time.time()
-		while GPIO.input(self.echo_pin) == 0:
+		while GPIO.input(self.echo_pin) == 0 :
 			StartTime = time.time()
+			
 		while GPIO.input(self.echo_pin) == 1:
 			StopTime = time.time()
 		TimeElapsed = StopTime - StartTime
