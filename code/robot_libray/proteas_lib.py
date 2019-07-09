@@ -333,7 +333,7 @@ class ultrasonic_sensor():
 	Functions: 
 	get_distance() return distance on cm	
 	'''
-	def __init__(self,echo_pin,trig_pin):
+	def __init__(self,echo_pin=14,trig_pin=15):
 		self.echo_pin = echo_pin
 		self.trig_pin = trig_pin
 		GPIO.setup(self.echo_pin,GPIO.IN)
@@ -347,10 +347,10 @@ class ultrasonic_sensor():
 		StopTime = time.time()
 		while GPIO.input(self.echo_pin) == 0:
 			StartTime = time.time()
-		while GPIO.input(self.trig_pin) == 1:
+		while GPIO.input(self.echo_pin) == 1:
 			StopTime = time.time()
 		TimeElapsed = StopTime - StartTime
-		distance = (TimeElapsed * 34300) / 2
+		distance = 17150*TimeElapsed
 		return distance
 
 class screen():
