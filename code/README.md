@@ -21,8 +21,9 @@ An overview of my programming stuck.
   * Make csv class save data mesurment to csv :white_check_mark:
   
 * Special Classes for educational examples
-  * Acceleration and Velocity expiriment with graphs :white_check_mark:
+  * Acceleration and Velocity expirament with graphs :white_check_mark:
   * Line follower robot :white_check_mark:
+  * Collision avoidance :white_check_mark:
 
 ## :exclamation: **Important Notice** :exclamation:
 :cop: The robot fully comply with the three laws of robotics:
