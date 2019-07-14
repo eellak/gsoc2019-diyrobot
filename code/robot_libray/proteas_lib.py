@@ -22,7 +22,7 @@ class robot_simple_control():
 	Odometer B: pin = 6
 	Functions:
 	forward() Makes robot move forward
-	reverse()  Makes robot move backyard	
+	reverse()  Makes robot move backward	
 	rotate_right(delay=0.5) Rotate robot right for 0.5
 	rotate_left(delay=0.5) Rotate robot left for 0.5
 	set_speed(speed=90) Sets robot speed to 0-100%
@@ -93,7 +93,7 @@ class robot_collision_avoidance():
 	Odometer B: pin = 6
 	Functions:
 	forward() Makes robot move forward
-	reverse()  Makes robot move backyard	
+	reverse()  Makes robot move backward	
 	rotate_right(delay=0.5) Rotate robot right for 0.5
 	rotate_left(delay=0.5) Rotate robot left for 0.5
 	set_speed(speed=90) Sets robot speed to 0-100%
@@ -198,7 +198,7 @@ class robot_speed_exp():
 	Odometer B: pin = 6
 	Functions:
 	forward() Makes robot move forward
-	reverse()  Makes robot move backyard
+	reverse()  Makes robot move backward
 	set_speed(speed=90) Sets robot speed to 0-100%
 	control_speed(speed=90) Sets robot speed real time to 0-100%
 	count_revolutions()  Starts the revolutions counter of two sensors
@@ -322,7 +322,7 @@ class robot_line_follower():
 	Sensor B: pin = 26
 	Functions:
 	forward() Makes robot move forward
-	reverse()  Makes robot move backyard	
+	reverse()  Makes robot move backward	
 	rotate_right(delay=0.5) Rotate robot right for 0.01
 	rotate_left(delay=0.5) Rotate robot left for 0.01
 	set_speed(speed=90) Sets robot speed to 0-100%
@@ -405,13 +405,25 @@ class gen_output():
 		
 class gen_input():
 	'''
-	Class ir_sensor(pin) 
+	Class gen_input(pin) 
 	Functions: 
 	get_state() return True/False		
 	'''
 	def __init__(self,pin=4):
 		self.pin = pin
 		GPIO.setup(self.pin,GPIO.IN)
+	def get_state(self):
+		return GPIO.input(self.pin)	
+
+class button():
+	'''
+	Class button(pin) 
+	Functions: 
+	get_state() return True/False		
+	'''
+	def __init__(self,pin=4):
+		self.pin = pin
+		GPIO.setup(self.pin,GPIO.IN,pull_up_down=GPIO.PUD_DOWN)
 	def get_state(self):
 		return GPIO.input(self.pin)	
 		
