@@ -26,6 +26,8 @@ An overview of my programming stuck.
   * Line follower robot :white_check_mark:
   * Collision avoidance :white_check_mark:
 
+* Scripts section
+  * create_hostpot.sh Make the Raspberry Pi wireless Acces Point. :white_check_mark: 
 ## :exclamation: **Important Notice** :exclamation:
 :cop: The robot fully comply with the three laws of robotics:
 
