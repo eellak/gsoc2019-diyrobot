@@ -20,7 +20,14 @@ An overview of my programming stuck.
   * Button class with software Pull Down parameter enabled :white_check_mark:
   * Log data class store data for plot or edit :white_check_mark:
   * Make csv class save data mesurment to csv :white_check_mark:
-  
+
+* Computer Vision library :warning:
+  * Capture image class :white_check_mark:
+  * Aruco artifacts class :white_check_mark:
+  * QRcode reader class  :construction:
+  * Line follow (camera mode) class  :construction:
+  * Face detection class  :construction:
+ 
 * Special Classes for educational examples
   * Acceleration and Velocity expirament with graphs :white_check_mark:
   * Line follower robot :white_check_mark:
