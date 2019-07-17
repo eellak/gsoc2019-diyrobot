@@ -12,7 +12,10 @@ class aruco_find():
 		self.parameters =  aruco.DetectorParameters_create()
 		self.ids = []
 		self.corners = []
-		
+		self.cx = 0
+		self.cy = 0
+		self.width = 0
+		self.height=0		
 	def to_gray(self,image):
 		return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 	def detect(self,image):
@@ -25,10 +28,9 @@ class aruco_find():
 		else:
 			self.ids = []
 			self.corners = []
-
 		image_marked = aruco.drawDetectedMarkers(image.copy(), corners, ids)
 		return image_marked
-	def find(self,image):
+	def detect_artifacts(self,image):
 		gray = self.to_gray(image)
 		corners, ids, rejectedImgPoints = self.detect(gray)
 		final = self.mark_image(image,corners, ids)
@@ -39,19 +41,27 @@ class aruco_find():
 		for item in nplist:
 			temp.append(item[0])
 		return temp
-	def return_pos(self):
-		return self.ids ,self.corners
-	def detect_pos(self,ar_id):
+	def find(self,ar_id):
 		if len(self.ids)>0:
 			if ar_id in self.ids:
 				i = self.ids.index(3)
-				print(self.corners[i])
 				x1=self.corners[i][0][0]
 				x2=self.corners[i][1][0]
 				y1=self.corners[i][0][1]
 				y2=self.corners[i][3][1]
-				print(center_point(x1,x2,y1,y2))
-
+				self.cx = ((x2-x1)/2)+x1
+				self.cy = ((y2-y1)/2)+y1
+				self.width = x2-x1
+				self.height = y2-y1
+		else:
+				self.cx = 0
+				self.cy = 0
+				self.width = 0
+				self.height = 0
+	def get_pos(self):
+		return self.cx,self.cy
+	def get_rect(self):
+		return self.width,self.height
 
 class camera():	
 	def __init__(self,camera=0):
@@ -85,10 +95,74 @@ class show_image():
 		else:
 			cv2.destroyAllWindows()
 
-def center_point(x1,x2,y1,y2):
-	xc = ((x2-x1)/2)+x1
-	yc = ((y2-y1)/2)+y1
-	return int(xc),int(yc)
+class face_find():
+	def __init__(self):
+		cascPath = 'haarcascade_frontalface_default.xml'
+		self.faceCascade = cv2.CascadeClassifier(cascPath)
+		self.cx = 0
+		self.cy = 0
+		self.width = 0
+		self.height=0
+	def detect_face(self,frame):
+		gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+		faces = self.faceCascade.detectMultiScale(
+		gray,
+		scaleFactor=1.1,
+		minNeighbors=5,
+		minSize=(30, 30),
+		flags=cv2.CASCADE_SCALE_IMAGE)
+		if len(faces) > 0:
+			(x,y,w,h)= faces[0]
+			cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+			self.cx = int(((w/2)+x))
+			self.cy = int(((h/2)+y))
+			self.width = w
+			self.height = h
+			cv2.circle(frame,(self.cx, self.cy), 5, (0,255,0), -1)
+		else:
+			self.cx = 0
+			self.cy = 0
+			self.width = 0
+			self.height = 0
+		return frame
+	def get_pos(self):
+		return self.cx,self.cy
+	def get_rect(self):
+		return self.width,self.height
+
+class robot_center():
+	def __init__(self,width=640):
+		self.width = width
+		self.step = int(width/5)
+		self.w1 = self.step*2
+		self.w2 = self.step*3
+		
+	def direction(self,posx):
+		if posx >0 and posx < self.w1:
+			print("Rotate Right")
+			return 2
+		elif posx >self.w2 and posx < self.width:
+			print("Rotate Left")
+			return 1
+		else:
+			print("Stay")
+			return 0
+
+class robot_follow():
+	def __init__(self,width=640):
+		self.width = width
+		self.max= int(width/2)
+	def direction(self,rx):
+		if rx < self.max and rx > 0:
+			print("Forward")
+			return 1
+		elif rx > (self.max + 30):
+			print("Back")
+			return 2
+		else:
+			print("Stay")
+			return 0
+
 
 
 				

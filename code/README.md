@@ -12,21 +12,25 @@ An overview of my programming stuck.
   * Obstacle ir sensor  class :white_check_mark:
   * Servo motor class :white_check_mark: 
   * Nokia 5110 screen :white_check_mark:
-  * MPU650 accelerometer :white_check_mark: 
+  * MPU6050 accelerometer :white_check_mark: 
   * HMC5883L compass :white_check_mark:
   * Ultrasonic sensor :white_check_mark:
   * General input class (every sensor with digital output e.x. ligth sensor) :white_check_mark:
   * General output class (led and every sensor with digital input e.x. relay shield) :white_check_mark:
   * Button class with software Pull Down parameter enabled :white_check_mark:
-  * Log data class store data for plot or edit :white_check_mark:
-  * Make csv class save data mesurment to csv :white_check_mark:
+  * Timer class for usage on PID,logs or every usage with time elapsed needs :white_check_mark:
+  * Log data class store data for plot or evaluation :white_check_mark:
+  * Make csv class save mesurments to csv :white_check_mark:
 
 * Computer Vision library :warning:
   * Capture image class :white_check_mark:
+  * Image preview class on Jupyter notebook :white_check_mark:
   * Aruco artifacts class :white_check_mark:
   * QRcode reader class  :construction:
-  * Line follow (camera mode) class  :construction:
-  * Face detection class  :construction:
+  * Line follower class (camera mode) :construction:
+  * Face detection class  :white_check_mark:
+  * Follow the target class (face or Aruco artifact) :white_check_mark:
+  * Approach the target class (face or Aruco artifact) :white_check_mark:
  
 * Special Classes for educational examples
   * Acceleration and Velocity expirament with graphs :white_check_mark:
@@ -34,7 +38,7 @@ An overview of my programming stuck.
   * Collision avoidance :white_check_mark:
 
 * Scripts section
-  * create_hostpot.sh Make the Raspberry Pi wireless Acces Point. :white_check_mark: 
+  * create_hostpot.sh Make the Raspberry Pi a wireless Acces Point. :white_check_mark: 
 ## :exclamation: **Important Notice** :exclamation:
 :cop: The robot fully comply with the three laws of robotics:
 
