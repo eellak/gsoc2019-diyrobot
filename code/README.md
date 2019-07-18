@@ -27,9 +27,9 @@ An overview of my programming stuck.
   * Image preview class on Jupyter notebook :white_check_mark:
   * Aruco artifacts class :white_check_mark:
   * QRcode reader class  :construction:
-  * Line follower class (camera mode) :construction:
+  * Line follower class (camera mode) :white_check_mark:
   * Face detection class  :white_check_mark:
-  * Follow the target class (face or Aruco artifact) :white_check_mark:
+  * Follow the target class (line,face or Aruco artifact) :white_check_mark:
   * Approach the target class (face or Aruco artifact) :white_check_mark:
  
 * Special Classes for educational examples
