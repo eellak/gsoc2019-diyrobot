@@ -14,7 +14,7 @@ from random import randrange
 #General Abstract
 class robot_simple_control():
 	'''
-	Class robot_simple_control() 
+	Class robot_simple_control()
 	Default pin connections:
 	Motor A : ENA = 17 , IN1 = 27 , IN2 = 22
 	Motor B : ENB = 10 , IN3 = 9 , IN4 = 11
@@ -22,7 +22,7 @@ class robot_simple_control():
 	Odometer B: pin = 6
 	Functions:
 	forward() Makes robot move forward
-	reverse()  Makes robot move backward	
+	reverse()  Makes robot move backward
 	rotate_right(delay=0.5) Rotate robot right for 0.5
 	rotate_left(delay=0.5) Rotate robot left for 0.5
 	set_speed(speed=90) Sets robot speed to 0-100%
@@ -48,11 +48,11 @@ class robot_simple_control():
 	def rotate_right(self,delay = 0.5):
 		self.motor_a.move()
 		self.motor_b.move("reverse")
-		time.sleep(delay)		
+		time.sleep(delay)
 	def rotate_left(self,delay=0.5):
 		self.motor_a.move("reverse")
-		self.motor_b.move()	
-		time.sleep(delay)	
+		self.motor_b.move()
+		time.sleep(delay)
 	def stop(self):
 		self.motor_a.stop()
 		self.motor_b.stop()
@@ -62,11 +62,11 @@ class robot_simple_control():
 	def control_speed(self,speed=90):
 		self.motor_a.control_speed(speed)
 		self.motor_b.control_speed(speed)
-		
+
 	def count_revolutions(self):
 		self.odometer_a.count_revolutions()
 		self.odometer_b.count_revolutions()
-		
+
 	def get_steps(self):
 		a = self.odometer_a.get_steps()
 		b = self.odometer_b.get_steps()
@@ -77,14 +77,14 @@ class robot_simple_control():
 		return (a+b)/2
 	def get_distance(self):
 		a = self.odometer_a.get_distance()
-		b = self.odometer_b.get_distance()	
+		b = self.odometer_b.get_distance()
 		return (a+b)/2
 	def reset_odometer(self):
 		self.odometer_a.reset()
-		self.odometer_b.reset()	
+		self.odometer_b.reset()
 class robot_collision_avoidance():
 	'''
-	Class robot_simple_control() 
+	Class robot_simple_control()
 	Default pin connections:
 	Motor A : ENA = 17 , IN1 = 27 , IN2 = 22
 	Motor B : ENB = 10 , IN3 = 9 , IN4 = 11
@@ -93,7 +93,7 @@ class robot_collision_avoidance():
 	Odometer B: pin = 6
 	Functions:
 	forward() Makes robot move forward
-	reverse()  Makes robot move backward	
+	reverse()  Makes robot move backward
 	rotate_right(delay=0.5) Rotate robot right for 0.5
 	rotate_left(delay=0.5) Rotate robot left for 0.5
 	set_speed(speed=90) Sets robot speed to 0-100%
@@ -122,11 +122,11 @@ class robot_collision_avoidance():
 	def rotate_right(self,delay = 0.1):
 		self.motor_a.move()
 		self.motor_b.move("reverse")
-		time.sleep(delay)		
+		time.sleep(delay)
 	def rotate_left(self,delay=0.1):
 		self.motor_a.move("reverse")
-		self.motor_b.move()	
-		time.sleep(delay)	
+		self.motor_b.move()
+		time.sleep(delay)
 	def stop(self):
 		self.motor_a.stop()
 		self.motor_b.stop()
@@ -136,11 +136,11 @@ class robot_collision_avoidance():
 	def control_speed(self,speed=90):
 		self.motor_a.control_speed(speed)
 		self.motor_b.control_speed(speed)
-		
+
 	def count_revolutions(self):
 		self.odometer_a.count_revolutions()
 		self.odometer_b.count_revolutions()
-		
+
 	def get_steps(self):
 		a = self.odometer_a.get_steps()
 		b = self.odometer_b.get_steps()
@@ -151,22 +151,22 @@ class robot_collision_avoidance():
 		return (a+b)/2
 	def get_distance(self):
 		a = self.odometer_a.get_distance()
-		b = self.odometer_b.get_distance()	
+		b = self.odometer_b.get_distance()
 		return (a+b)/2
 	def reset_odometer(self):
 		self.odometer_a.reset()
-		self.odometer_b.reset()	
+		self.odometer_b.reset()
 	def get_obstacle(self):
 		return self.obstacle.get_distance()
 	def start_moving(self,speed = 60):
 		try:
-			
+
 			while True:
 				self.set_speed(speed)
 				if self.get_obstacle() > 55 and self.get_obstacle() < 2000:
 					self.forward()
 					print("Forward")
-				elif self.get_obstacle() <= 20 or self.get_obstacle() > 2000 : 
+				elif self.get_obstacle() <= 20 or self.get_obstacle() > 2000 :
 					print("Reverse")
 					self.reverse()
 				else:
@@ -176,7 +176,7 @@ class robot_collision_avoidance():
 						if direction == 1:
 							print("Right")
 							self.rotate_right()
-							
+
 						else:
 							print("Left")
 							self.rotate_left()
@@ -186,11 +186,11 @@ class robot_collision_avoidance():
 		finally:
 			self.stop()
 			print("Robot finished")
-		
-		
+
+
 class robot_speed_exp():
 	'''
-	Class robot_simple_control() 
+	Class robot_simple_control()
 	Default pin connections:
 	Motor A : ENA = 17 , IN1 = 27 , IN2 = 22
 	Motor B : ENB = 10 , IN3 = 9 , IN4 = 11
@@ -216,7 +216,7 @@ class robot_speed_exp():
 		self.odometer_b = odometer(6)
 		self.timer_1 = timer()
 		self.accel_log = data_loger(title = "Acceleration Graph",plot_number=0)
-		self.vel_log = data_loger(title = "Velocity Graph",plot_number=1)		
+		self.vel_log = data_loger(title = "Velocity Graph",plot_number=1)
 	def forward(self):
 		self.motor_a.move()
 		self.motor_b.move()
@@ -242,19 +242,19 @@ class robot_speed_exp():
 		return (a+b)/2
 	def get_distance(self):
 		a = self.odometer_a.get_distance(precision = 10)
-		b = self.odometer_b.get_distance(precision = 10)	
+		b = self.odometer_b.get_distance(precision = 10)
 		return (a+b)/2
 	def reset_odometer(self):
 		self.odometer_a.reset()
-		self.odometer_b.reset()	
+		self.odometer_b.reset()
 	def get_acceleration(self,dimension = "x"):
-		return self.accel.get_acceleration(dimension)	
+		return self.accel.get_acceleration(dimension)
 	def calculate_velocity(self,nowt,prevt,pos2,pos1):
 		velocity = (pos2-pos1)/(nowt - prevt)
-			
+
 		return velocity
 	def calculate_accel(self,nowt,prevt,vel2,vel1):
-		aceeleration = (vel2-vel1)/(nowt - prevt)		
+		aceeleration = (vel2-vel1)/(nowt - prevt)
 		return aceeleration
 	def accel_velocity_exp(self,distance=10,speed = 90):
 		print("Acceleration and Speed experiment")
@@ -269,7 +269,7 @@ class robot_speed_exp():
 			self.vel_log.store_value(0,0)
 			time.sleep(0.5)
 			self.forward()
-			prev_pos = 0 
+			prev_pos = 0
 			prev_vel = 0
 			prev_time = 0
 			cur_vel = 0
@@ -277,7 +277,7 @@ class robot_speed_exp():
 			while self.get_distance()<distance:
 				self.count_revolutions()
 				print("Traveled distane {}".format(self.get_distance()))
-				elapsed_time = self.timer_1.get_elapsed()	
+				elapsed_time = self.timer_1.get_elapsed()
 				cur_pos = self.get_distance()
 				calcu_vel = self.calculate_velocity(elapsed_time,prev_time,cur_pos,prev_pos)
 				print(calcu_vel)
@@ -294,7 +294,7 @@ class robot_speed_exp():
 				self.vel_log.store_value(elapsed_time,cur_vel)
 				#time.sleep(0.01)
 			self.stop()
-			time.sleep(0.5)	
+			time.sleep(0.5)
 			self.count_revolutions()
 			elapsed_time = self.timer_1.get_elapsed()
 			cur_accel = 0
@@ -304,17 +304,17 @@ class robot_speed_exp():
 			print("Experiment completed!")
 			print("Velocity graph:")
 			self.vel_log.draw_graph()
-			print("Acceleration graph:")		
+			print("Acceleration graph:")
 			self.accel_log.draw_graph()
 		except KeyboardInterrupt:
 			print("Experiment canceled by user")
 		finally:
 			self.stop()
 			print("Robot finished")
-		
+
 class robot_line_follower():
 	'''
-	Class robot_line_follower() 
+	Class robot_line_follower()
 	Default pin connections:
 	Motor A : ENA = 17 , IN1 = 27 , IN2 = 22
 	Motor B : ENB = 10 , IN3 = 9 , IN4 = 11
@@ -322,7 +322,7 @@ class robot_line_follower():
 	Sensor B: pin = 26
 	Functions:
 	forward() Makes robot move forward
-	reverse()  Makes robot move backward	
+	reverse()  Makes robot move backward
 	rotate_right(delay=0.5) Rotate robot right for 0.01
 	rotate_left(delay=0.5) Rotate robot left for 0.01
 	set_speed(speed=90) Sets robot speed to 0-100%
@@ -346,12 +346,12 @@ class robot_line_follower():
 		self.control_speed(speed)
 		self.motor_a.move("forward")
 		self.motor_b.move("reverse")
-		time.sleep(delay)		
+		time.sleep(delay)
 	def rotate_left(self,speed=90,delay=0.01):
 		self.control_speed(speed)
 		self.motor_a.move("reverse")
-		self.motor_b.move("forward")	
-		time.sleep(delay)	
+		self.motor_b.move("forward")
+		time.sleep(delay)
 	def stop(self):
 		self.motor_a.stop()
 		self.motor_b.stop()
@@ -368,31 +368,31 @@ class robot_line_follower():
 			while True:
 				if not self.sensor_A.get_state() and  self.sensor_B.get_state():
 					self.stop()
-					self.rotate_right()				
+					self.rotate_right()
 				elif  self.sensor_A.get_state() and not self.sensor_B.get_state():
 					self.stop()
-					self.rotate_left()	
+					self.rotate_left()
 				elif  self.sensor_A.get_state() and  self.sensor_B.get_state():
 					break
 				else:
 					self.forward(speed)
-				
+
 		except KeyboardInterrupt:
 			print("Experiment canceled by user")
 		finally:
 			self.stop()
 			print("Robot finished")
-		
-		
 
-		
+
+
+
 # Hardware section
 class gen_output():
 	'''
-	Class gen_output(pin) 
+	Class gen_output(pin)
 	Functions:
 	set_on() set High the output pin
-	set_off() set Low the output pin		
+	set_off() set Low the output pin
 	'''
 	def __init__(self,pin=5):
 		self.pin = pin
@@ -402,35 +402,35 @@ class gen_output():
 		GPIO.output(self.pin, True)
 	def set_off(self):
 		GPIO.output(self.pin, False)
-		
+
 class gen_input():
 	'''
-	Class gen_input(pin) 
-	Functions: 
-	get_state() return True/False		
+	Class gen_input(pin)
+	Functions:
+	get_state() return True/False
 	'''
 	def __init__(self,pin=4):
 		self.pin = pin
 		GPIO.setup(self.pin,GPIO.IN)
 	def get_state(self):
-		return GPIO.input(self.pin)	
+		return GPIO.input(self.pin)
 
 class button():
 	'''
-	Class button(pin) 
-	Functions: 
-	get_state() return True/False		
+	Class button(pin)
+	Functions:
+	get_state() return True/False
 	'''
 	def __init__(self,pin=4):
 		self.pin = pin
 		GPIO.setup(self.pin,GPIO.IN,pull_up_down=GPIO.PUD_DOWN)
 	def get_state(self):
-		return GPIO.input(self.pin)	
-		
+		return GPIO.input(self.pin)
+
 class compass():
 	'''
-	Class compass() 
-	Functions: 		
+	Class compass()
+	Functions:
 	'''
 	def __init__(self):
 		self.comp = HMC5883L(gauss=0.88, declination=(-2, 5))
@@ -438,14 +438,14 @@ class compass():
 		return self.comp.heading()
 	def get_data(self):
 		return self.comp.read_data()
-		
-		
-		
+
+
+
 class ultrasonic_sensor():
 	'''
-	Class ultrasonic_sensor(echo_pin,trig_pin) 
-	Functions: 
-	get_distance() return distance on cm	
+	Class ultrasonic_sensor(echo_pin,trig_pin)
+	Functions:
+	get_distance() return distance on cm
 	'''
 	def __init__(self,echo_pin=14,trig_pin=15):
 		self.echo_pin = echo_pin
@@ -454,7 +454,7 @@ class ultrasonic_sensor():
 		GPIO.setup(self.trig_pin,GPIO.OUT)
 		GPIO.output(self.trig_pin, False)
 	def get_distance(self):
-		
+
 		GPIO.output(self.trig_pin, True)
 		time.sleep(0.00001)
 		GPIO.output(self.trig_pin, False)
@@ -462,7 +462,7 @@ class ultrasonic_sensor():
 		StopTime = time.time()
 		while GPIO.input(self.echo_pin) == 0 :
 			StartTime = time.time()
-			
+
 		while GPIO.input(self.echo_pin) == 1:
 			StopTime = time.time()
 		TimeElapsed = StopTime - StartTime
@@ -471,12 +471,12 @@ class ultrasonic_sensor():
 
 class screen():
 	'''
-	Class screen(SCLK = 21,DIN = 20,DC = 16,RST =7,CS = 12) 
-	Functions: 
+	Class screen(SCLK = 21,DIN = 20,DC = 16,RST =7,CS = 12)
+	Functions:
 	clear_scrn() Clears the screen
 	show_text(text,x=0,y=0) Prints text in the screen
 	ip_screen() Prints the current ip
-	print_text(text_list) Get a list input of 5 item and print every item in a line	
+	print_text(text_list) Get a list input of 5 item and print every item in a line
 	show_image(path) Draw a graph in png from the images/ path
 	'''
 	def __init__(self,SCLK = 21,DIN = 20,DC = 16,RST =7,CS = 12):
@@ -515,12 +515,12 @@ class screen():
 		self.show_text(ipl[-1],0,29)
 		self.show_text(":8080",0,39)
 		self.show_canvas()
-		
+
 	def print_text(self,text_list):
 		self.clear_scrn()
 		self.empty_canvas()
 		posy = 0
-		for i in range(0,5):	
+		for i in range(0,5):
 			temp  = text_list[i]
 			if isinstance(temp,int) or isinstance(temp,float):
 				temp = str(temp)
@@ -528,17 +528,17 @@ class screen():
 			posy += 9
 		self.show_canvas()
 	def show_image(self,path):
-		path = "images/" +path		
+		path = "images/" +path
 		self.clear_scrn()
 		im = Image.open(path)
 		self.canvas = im.resize((LCD.LCDWIDTH, LCD.LCDHEIGHT), Image.ANTIALIAS).convert('1')
 		self.show_canvas()
-	
-	
+
+
 class accelerometer():
 	'''
-	Class accelerometer(address=0x68) 
-	Functions: 
+	Class accelerometer(address=0x68)
+	Functions:
 	get_acceleration(dimension = "all") with "parameter return dictionary with x,y,z acceleration for a specific dimension give as parameter "x","y","z" return value
 	get_gyro(dimension = "all") with "parameter return dictionary with x,y,z acceleration for a specific dimension give as parameter "x","y","z" return value
 	'''
@@ -562,14 +562,14 @@ class accelerometer():
 		else:
 			print("Dimension not recognized!!")
 			return 0
-		
-		
-		
-		
+
+
+
+
 class buzzer():
 	'''
-	Class buzzer(pin,freq=1500,dc=50) 
-	Functions: 
+	Class buzzer(pin,freq=1500,dc=50)
+	Functions:
 	beep() Short tone
 	timer(count) Timer function with wait and for every 1 sec makes a tone
 	'''
@@ -595,12 +595,12 @@ class buzzer():
 
 class motor():
 	'''
-	Class motor(speed_pin,terma_pin,termb_pin,freq=10000,dc=70) 
-	Functions: 
+	Class motor(speed_pin,terma_pin,termb_pin,freq=10000,dc=70)
+	Functions:
 	control_speed(speed) Changes the speed of the motor real time, speed in  0-100%
 	set_speed(speed) Changes the default motor speed, speed in  0-100%
 	move(direction ="forward") Set the motor for forwrd movement also the parameter "reverse" change the wheel direction
-	stop() Stops the motor 
+	stop() Stops the motor
 	'''
 	def __init__(self,speed_pin,terma_pin,termb_pin,freq=10000,dc=70):
 		GPIO.setup(speed_pin,GPIO.OUT)
@@ -639,23 +639,23 @@ class motor():
 	def stop(self):
 		self.mot.ChangeDutyCycle(0)
 
-	
+
 
 
 class odometer():
 	'''
 	Class odometer(pin,sensor_disc = 20) by default 20 lines sensor disc
-	Functions: 
+	Functions:
 	get_state() Returns the sensor state True/False
 	count_revolutions() Increases the counter of revolutions calla this function iside a loop for total distance count
 	get_steps() Returns the steps of the sensor
 	get_revolutions() Returns the number of revolutions
 	get_distance(wheel_diameter=6.6,precision = 2) Returns the traveled distance in cm, by default the wheel diameter is 6.6 and the distance rounded in 2 digits
-	reset() Resets the steps counter	
+	reset() Resets the steps counter
 	'''
 	def __init__(self,pin,sensor_disc = 20):
 		self.pin = pin
-		GPIO.setup(pin, GPIO.IN) 
+		GPIO.setup(pin, GPIO.IN)
 		self.prev_pos = self.get_state()
 		self.sensor_disc = sensor_disc
 		self.steps = 0
@@ -669,7 +669,7 @@ class odometer():
 		else:
 			if self.prev_pos:
 				self.prev_pos = False
-				
+
 	def get_steps(self):
 		return self.steps
 	def get_revolutions(self):
@@ -677,24 +677,24 @@ class odometer():
 	def get_distance(self,wheel_diameter=6.6,precision = 2):
 		circumference = wheel_diameter * math.pi
 		revolutions = self.steps/self.sensor_disc
-		distance = revolutions * circumference		
+		distance = revolutions * circumference
 		#return round(distance,precision)
 		return(distance)
 	def reset(self):
-		self.steps = 0		
-		
+		self.steps = 0
+
 class servo ():
 	'''
-	Class servo(pin,pin) 
-	Functions: 
+	Class servo(pin,pin)
+	Functions:
 	set_angle(angle) Changes the servo angle, angles between 0-180
 	'''
 	def __init__(self,pin):
-		
+
 		self.pin = pin
 		GPIO.setup(pin,GPIO.OUT)
-		self.sr_mot = GPIO.PWM(pin,50)		
-		self.sr_mot.start(self.claculate_pwm(90))		
+		self.sr_mot = GPIO.PWM(pin,50)
+		self.sr_mot.start(self.claculate_pwm(90))
 	def set_angle(self,angle):
 		if angle < 0 or angle > 180 :
 			print("The servo motor angle limits is between 0-180!")
@@ -705,8 +705,27 @@ class servo ():
 
 
 # Software section
+class arm_2dof():
+	'''
+	!!!Experimental class not Tested yet!!!
+	Inverse kinematics class, for two dof
+	robotic arm. Takes as input the
+	desired destination of the arm
+	and return the angles in degrees
+	for the servo motors in degrees.
+	'''
+    def __init__(self,a1=100,a2=100):
+        self.a1 = a1
+        self.a2 = a2
+    def calculate_angle(self,x,y):
+        q2 = -math.acos((x**2 + y**2 - self.a1**2 -self.a2**2)/(2*self.a1*self.a2))
+        q1 = math.atan(y/x)+math.atan((self.a2*math.sin(q2))/(self.a1+(self.a2*math.cos(q2))))
+        print("Join 1 angle {} degrees".format(math.degrees(q1)))
+        print("Join 2 angle {} degrees".format(math.degrees(q2)))
+        return q1,q2
+
 class PID():
-	''' 
+	'''
 	PID controller Class for precise movement
 	e.x. mot_pid = PID(P parameter,I parameter,K parameter)
 	'''
@@ -715,15 +734,15 @@ class PID():
 		self.integral = 0
 		self.KP = KP
 		self.KI = KI
-		self.KD = KD 
-		
-	def pid_calc(self,desired_value,actual_value,start_time,end_time):        
+		self.KD = KD
+
+	def pid_calc(self,desired_value,actual_value,start_time,end_time):
 		error = desired_value - actual_value
 		iteration_time = end_time - start_time
 		self.integral = self.integral + (error*iteration_time)
 		derivative = (error - self.error_prior)/iteration_time
 		output = self.KP*error + self.KI*self.integral + self.KD*derivative
-		self.error_prior = error        
+		self.error_prior = error
 		return output
 	def reset_pid(self):
 		self.error_prior = 0
@@ -733,10 +752,10 @@ class PID():
 		self.KI = KI
 		self.KD = KD
 		self.error_prior = 0
-		self.integral = 0		
+		self.integral = 0
 
 class data_loger():
-	def __init__(self,title = "New Graph",plot_number = 0):		
+	def __init__(self,title = "New Graph",plot_number = 0):
 		self.data = []
 		self.title = title
 		self.plt_number = plot_number
@@ -750,7 +769,7 @@ class data_loger():
 		print("The size of data table is {}".format(len(self.data)))
 		return len(self.data)
 	def draw_graph(self,type = "line"):
-		
+
 		if type == "line" or type == "points":
 			plt.figure(self.plt_number)
 			x, y = zip(*self.data)
@@ -773,11 +792,11 @@ class data_loger():
 		plt.plot(x,y,linewidth=4,label=self.title)
 		print("The graph saves as {}".format(output))
 		plt.savefig(output)
-		
+
 class timer():
 	'''
-	Class timer() 
-	Functions: 
+	Class timer()
+	Functions:
 	start_timer() Start a timer
 	get_elapsed() Returns the elapsed time between start time and that momment in sec
 	'''
@@ -797,43 +816,40 @@ class timer():
 			return 0
 		else:
 			return time.time() - self.start
-		
-		
-#General functions	
+
+
+#General functions
 def start_lib():
 	'''
-	This function sets the GPIO pins to input output mode with GPIO number syntax. 	
+	This function sets the GPIO pins to input output mode with GPIO number syntax.
 	'''
 	GPIO.setmode(GPIO.BCM)
 	GPIO.setwarnings(False)
-	
+
 def clean():
 	'''
-	This function releases all the GPIO pins . 	
+	This function releases all the GPIO pins .
 	'''
-	GPIO.cleanup()	
-	
+	GPIO.cleanup()
+
 def get_ip():
 	'''
-	This function returns the ip of the RPI	
+	This function returns the ip of the RPI
 	'''
 	ip_list = []
 	for ifaceName in interfaces():
 		addresses = [i['addr'] for i in ifaddresses(ifaceName).setdefault(AF_INET, [{'addr':'No IP addr'}] )]
 		print(addresses[0])
 		ip_list.append(addresses[0])
-	return ip_list		
+	return ip_list
 
 def make_csv(data_list,filename="data.csv"):
 	'''
 	This function cretes csv file with logs from experiments.
 	'''
 	with open(filename, "w",newline='') as file:
-		csv.register_dialect('myDialect',delimiter = ',')        
+		csv.register_dialect('myDialect',delimiter = ',')
 		writer = csv.writer(file,dialect='myDialect')
 		for item in data_list:
 			writer.writerow(item)
 	print("Csv with name {} created.".format(filename))
-
-
-
