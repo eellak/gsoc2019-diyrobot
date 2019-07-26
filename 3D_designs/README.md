@@ -10,6 +10,9 @@ Here you can find all the stl files for the kit also images and instructions of 
 * Motor Block 
   * Top part :white_check_mark:
   * Bottom part :white_check_mark:
+* Free rotation modules
+  * Metal Ball Caster :white_check_mark:
+  * Free rotation wheel module :white_check_mark:
 * Main body 
   * Top part :white_check_mark:
   * Bottom part :white_check_mark:
