@@ -714,15 +714,15 @@ class arm_2dof():
 	and return the angles in degrees
 	for the servo motors in degrees.
 	'''
-    def __init__(self,a1=100,a2=100):
-        self.a1 = a1
-        self.a2 = a2
-    def calculate_angle(self,x,y):
-        q2 = -math.acos((x**2 + y**2 - self.a1**2 -self.a2**2)/(2*self.a1*self.a2))
-        q1 = math.atan(y/x)+math.atan((self.a2*math.sin(q2))/(self.a1+(self.a2*math.cos(q2))))
-        print("Join 1 angle {} degrees".format(math.degrees(q1)))
-        print("Join 2 angle {} degrees".format(math.degrees(q2)))
-        return q1,q2
+	def __init__(self,a1=100,a2=100):
+		self.a1 = a1
+		self.a2 = a2
+	def calculate_angle(self,x,y):
+		q2 = -math.acos((x**2 + y**2 - self.a1**2 -self.a2**2)/(2*self.a1*self.a2))
+		q1 = math.atan(y/x)+math.atan((self.a2*math.sin(q2))/(self.a1+(self.a2*math.cos(q2))))
+		print("Join 1 angle {} degrees".format(math.degrees(q1)))
+		print("Join 2 angle {} degrees".format(math.degrees(q2)))
+		return q1,q2
 
 class PID():
 	'''

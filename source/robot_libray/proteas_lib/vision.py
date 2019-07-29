@@ -86,7 +86,7 @@ class show_image():
 		cv2.imshow('frame',frame)
 		cv2.waitKey(1) 
 	def jpreview(self,frame):
-		im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
+		im = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 		display(PIL.Image.fromarray(im))		
 		clear_output(wait=True)	
 	def preview(self,frame):
@@ -100,9 +100,9 @@ class show_image():
 		else:
 			cv2.destroyAllWindows()
 
-class face_find():
+class face_detection():
 	def __init__(self):
-		cascPath = 'haarcascade_frontalface_default.xml'
+		cascPath = 'ext/haarcascade_frontalface_default.xml'
 		self.faceCascade = cv2.CascadeClassifier(cascPath)
 		self.cx = 0
 		self.cy = 0
