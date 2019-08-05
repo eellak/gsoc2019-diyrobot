@@ -390,6 +390,7 @@ class robot_line_follower():
 class gen_output():
 	'''
 	Class gen_output(pin)
+	Deafult pin 5
 	Functions:
 	set_on() set High the output pin
 	set_off() set Low the output pin
@@ -406,6 +407,7 @@ class gen_output():
 class gen_input():
 	'''
 	Class gen_input(pin)
+	Default pin 4
 	Functions:
 	get_state() return True/False
 	'''
@@ -418,10 +420,12 @@ class gen_input():
 class button():
 	'''
 	Class button(pin)
+	Default pin 18
+	Software pull down activated
 	Functions:
 	get_state() return True/False
 	'''
-	def __init__(self,pin=4):
+	def __init__(self,pin=18):
 		self.pin = pin
 		GPIO.setup(self.pin,GPIO.IN,pull_up_down=GPIO.PUD_DOWN)
 	def get_state(self):
@@ -444,6 +448,7 @@ class compass():
 class ultrasonic_sensor():
 	'''
 	Class ultrasonic_sensor(echo_pin,trig_pin)
+	Default pins echo_pin=14,trig_pin=15
 	Functions:
 	get_distance() return distance on cm
 	'''
