@@ -1,6 +1,6 @@
 # The designs of the DIY-Robot kit
 
-Here you can find all the stl files for the kit also images and instructions of all the parts. 
+Here you can find all the stl files for the kit. For instructions and images visit the wiki of the repository . 
 ![components](../assets/images/components.png)
 * Socket System templates 
   * Connection System between components blocks :white_check_mark:
@@ -44,7 +44,7 @@ Here you can find all the stl files for the kit also images and instructions of 
   * Nokia 5110 LCD screen module :white_check_mark:
   * Optical odometer HC-020K module :white_check_mark:
 
-New parts 
+
 ## Explanation of the marks
 * :warning: Under Construction part, not ready for printing yet.
 * :white_check_mark: Ready for printing.

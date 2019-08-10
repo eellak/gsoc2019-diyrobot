@@ -44,7 +44,7 @@ class aruco_find():
 	def find(self,ar_id):
 		if len(self.ids)>0:
 			if ar_id in self.ids:
-				i = self.ids.index(3)
+				i = self.ids.index(ar_id)
 				x1=self.corners[i][0][0]
 				x2=self.corners[i][1][0]
 				y1=self.corners[i][0][1]
@@ -70,9 +70,8 @@ class aruco_find():
 
 class camera():	
 	def __init__(self,camera=0):
-		self.camera = camera		
-	def start_camera(self):
-		self.cap = cv2.VideoCapture(self.camera)	
+		self.camera = camera
+		self.cap = cv2.VideoCapture(self.camera)		
 	def take_frame(self):
 		ret, frame = self.cap.read()
 		return frame
@@ -102,7 +101,7 @@ class show_image():
 
 class face_detection():
 	def __init__(self):
-		cascPath = 'ext/haarcascade_frontalface_default.xml'
+		cascPath = '/home/pi/ext/haarcascade_frontalface_default.xml'
 		self.faceCascade = cv2.CascadeClassifier(cascPath)
 		self.cx = 0
 		self.cy = 0
@@ -111,8 +110,7 @@ class face_detection():
 		self.faces_num = 0
 	def detect_face(self,frame):
 		gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-		faces = self.faceCascade.detectMultiScale(
-		gray,
+		faces = self.faceCascade.detectMultiScale(gray,
 		scaleFactor=1.1,
 		minNeighbors=5,
 		minSize=(30, 30),

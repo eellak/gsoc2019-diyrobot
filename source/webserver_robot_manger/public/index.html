@@ -24,13 +24,11 @@
     </header>
 	
 	
-    <div class="w3-container ">     
+    <div class="w3-container w3-center ">     
 	 <p> Connect to Jupyter Notebook to create a new project! 
 	 The default password is "proteas".</p>
 	 <a onclick="redirect_jupyter()" href="javascript:void(0);">
-	 <img src="images/jupyter.png" style="width:90px;height:100px;">
-
-	Jupyter Notebook</a>
+	 <img src="images/jupyter.png" style="width:90px;height:100px;"></a>
 	</div>
 	
 	<br>
@@ -45,12 +43,10 @@
     </header>
 	
 	
-    <div class="w3-container">     
-	 <p>Useful Handbooks and Instructions</p>
-	 <a onclick="redirect_users()" href="javascript:void(0);">
-	 <img src="images/user-manual.png" style="width:100px;height:100px;">
-
-	Instructions</a>
+    <div class="w3-container w3-center">     
+	 <p>Offline instructions for the robot</p>
+	 <a  href="/instructions">
+	 <img src="images/user-manual.png" style="width:100px;height:100px;"></a>
 	</div>
 	
 	<br>
@@ -65,12 +61,13 @@
     </header>
 	
 	
-    <div class="w3-container">     
-	 <p>Manage wifi networks, Shtdown and Restart</p>
-	 <a onclick="redirect_users()" href="javascript:void(0);">
-	 <img src="images/blue-cog-md.png" style="width:100px;height:100px;">
+    <div class="w3-container w3-center">     
+	 <p>Restart or Shutdown </p>
+	 <a  href="/restart">
+	 <img src="images/restart.png" style="width:100px;height:100px;"></a>
 
-	Settings</a>
+	  <a  href="/shutdown">
+	  <img src="images/shutdown.png" style="width:100px;height:100px;"></a>
 	</div>
 	
 	<br>
@@ -85,13 +82,10 @@
     </header>
 	
 	
-    <div class="w3-container">     
-	 <p>The project createad for the Google Summer of Code by GFOSS. For more informations please 
-	 visit the Github page for the project.</p>
+    <div class="w3-container w3-center">     
+	 <p>For more informations please visit the Github page https://github.com/eellak/gsoc2019-diyrobot for the project.</p>
 	 <a href="https://github.com/eellak/gsoc2019-diyrobot">
-	 <img src="images/gsoc-gfoss.png" style="width:280px;height:200px;">
-
-	Github page</a>
+	 <img src="images/gsoc-gfoss.png" style="width:280px;height:200px;"></a>
 	</div>
 	
 	<br>
@@ -108,17 +102,7 @@ function redirect_jupyter(){
 	var cur_url = window.location.hostname;
 	window.location.replace("http://"+cur_url+":8888/");
 }
-function redirect_users(){
-	alert("Not Ready yet!")
-	//var cur_url = window.location.hostname;
-	//window.location.replace("http://"+cur_url+":8888/");
-}
 
-function redirect_manual(){
-	alert("Not Ready yet!")
-	//var cur_url = window.location.hostname;
-	//window.location.replace("http://"+cur_url+":8888/");
-}
 
 </script>
 

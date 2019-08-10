@@ -9,8 +9,8 @@ from PIL import ImageFont,ImageDraw,Image
 from netifaces import interfaces, ifaddresses, AF_INET
 import matplotlib.pyplot as plt
 from mpu6050 import mpu6050
-from hmc5883l import HMC5883L
 from random import randrange
+import smbus	
 #General Abstract
 class robot_simple_control():
 	'''
@@ -403,6 +403,8 @@ class gen_output():
 		GPIO.output(self.pin, True)
 	def set_off(self):
 		GPIO.output(self.pin, False)
+		
+
 
 class gen_input():
 	'''
@@ -427,22 +429,9 @@ class button():
 	'''
 	def __init__(self,pin=18):
 		self.pin = pin
-		GPIO.setup(self.pin,GPIO.IN,pull_up_down=GPIO.PUD_DOWN)
+		GPIO.setup(self.pin,GPIO.IN,pull_up_down=GPIO.PUD_UP)
 	def get_state(self):
 		return GPIO.input(self.pin)
-
-class compass():
-	'''
-	Class compass()
-	Functions:
-	'''
-	def __init__(self):
-		self.comp = HMC5883L(gauss=0.88, declination=(-2, 5))
-	def get_heading(self):
-		return self.comp.heading()
-	def get_data(self):
-		return self.comp.read_data()
-
 
 
 class ultrasonic_sensor():
@@ -471,7 +460,7 @@ class ultrasonic_sensor():
 		while GPIO.input(self.echo_pin) == 1:
 			StopTime = time.time()
 		TimeElapsed = StopTime - StartTime
-		distance = 17150*TimeElapsed
+		distance = (TimeElapsed * 34300) / 2
 		return distance
 
 class screen():
@@ -734,7 +723,7 @@ class PID():
 	PID controller Class for precise movement
 	e.x. mot_pid = PID(P parameter,I parameter,K parameter)
 	'''
-	def __init__(self,KP,KI,KD):
+	def __init__(self,KP=0,KI=0,KD=0):
 		self.error_prior = 0
 		self.integral = 0
 		self.KP = KP
@@ -759,13 +748,13 @@ class PID():
 		self.error_prior = 0
 		self.integral = 0
 
-class data_loger():
+class data_logger():
 	def __init__(self,title = "New Graph",plot_number = 0):
 		self.data = []
 		self.title = title
 		self.plt_number = plot_number
-	def store_value(self,x,y):
-		self.data.append([x,y])
+	def store_value(self,y,x):
+		self.data.append([y,x])
 	def clean_data(self):
 		self.data = []
 	def get_data(self):
