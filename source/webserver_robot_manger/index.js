@@ -2,43 +2,25 @@ var express = require('express');
 var app = express();
 var fs = require("fs");
 var path = require('path');
+var exec = require('child_process').exec;
 
-app.use(express.static("public"));
-var sudo = require('sudo-prompt');
 var options = {
   name: 'Proteas Sudo Prompt',
 };
 
+app.use(express.static("public"));
 
-app.get('/wifi', function (req, res) {
-	sudo.exec('cat etc/wpa_supplicant/wpa_supplicant.conf', options,
-  	function(error, stdout, stderr) {
-    	if (error) throw error;
-	     console.log(JSON.stringify(stdout));
-	      res.send(stdout);
-  	}
-	);
-})
+
 
 app.get('/shutdown', function (req, res) {
-	sudo.exec('shutdown -t 0', options,
-  	function(error, stdout, stderr) {
-    	if (error) throw error;
-	     console.log("Shutdown!");
-       res.send("Shutdown");
-  	}
-	);
+	exec('sudo /sbin/shutdown -r now', function (msg) { console.log(msg) });
 })
 
-app.get('/reboot', function (req, res) {
-	sudo.exec('reboot', options,
-  	function(error, stdout, stderr) {
-    	if (error) throw error;
-	console.log("Reboot!");
-	res.send("Reboot");
-  	}
-	);
+app.get('/restart', function (req, res) {
+	exec('sudo /sbin/reboot', function (msg) { console.log(msg) });
 })
+
+
 
 var server = app.listen(8080, function () {
    var host = server.address().address
