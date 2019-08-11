@@ -1,7 +1,8 @@
 # The designs of the DIY-Robot kit
 
-Here you can find all the stl files for the kit. For instructions and images visit the wiki of the repository . 
+Here you can find all the stl files for the kit. For instructions and images visit the Wiki](https://github.com/eellak/gsoc2019-diyrobot/wiki)  of the repository . 
 ![components](../assets/images/components.png)
+
 * Socket System templates 
   * Connection System between components blocks :white_check_mark:
   * Lock System between for components blocks :white_check_mark:
@@ -19,16 +20,10 @@ Here you can find all the stl files for the kit. For instructions and images vis
 * Boards modules
   * Raspberry Pi 3 self lock base with male socket :white_check_mark:
   * L298N Dual H-Bridge self lock base with male socket :white_check_mark:
-  * Arduino Mega self lock base with male socket :construction:
-  * Arduino Uno self lock base with male socket :construction:
 * Wire grouping socket 
-  * 4 Wire socket  :construction:
-  * 3 Wire socket :warning:
-  * 2 Wire socket  :construction:
   * 8 Pin expansion suitable for GND and VCC  :white_check_mark:
 * Servo Blocks
   * SG-5010 Servo :white_check_mark:
-  * NG-90 Microservo :construction:
 * Arm parts
   * Rotation base :white_check_mark:
   * Arm extension servo head socket :white_check_mark:

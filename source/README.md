@@ -1,12 +1,12 @@
-# The mind of the DIY-Robot kit
+# The mind of the Robot
 
-Here you can find all the needed files (python libraries and scripts) for a smooth deployment. For instructions visit the wiki of the repository
+Here you can find all the needed files (python libraries and scripts) for a smooth deployment. For instructions visit the Wiki](https://github.com/eellak/gsoc2019-diyrobot/wiki) of the repository
 
 An overview of my programming stuck.
 ![prog stuck](../assets/images/prog_stuck.png)
 
 
-* Python robot library :warning:
+* Python robot library :white_check_mark::
   * Buzzer class :white_check_mark:
   * Dc motor class :white_check_mark:
   * Optical odometer class :white_check_mark:
@@ -22,19 +22,18 @@ An overview of my programming stuck.
   * Timer class for usage on PID,logs or every usage with time elapsed needs :white_check_mark:
   * Log data class store data for plot or evaluation :white_check_mark:
   * Make csv class save measurements to csv :white_check_mark:
-  * PID class :warning:
-  * Inverse Kinematics for 2-DOF robotic arm :warning:
+  * PID class :white_check_mark:
+  * Inverse Kinematics for 2-DOF robotic arm :white_check_mark:
 
-* Computer Vision library :warning:
+* Computer Vision library :white_check_mark:
   * Capture image class :white_check_mark:
   * Image preview class on Jupyter notebook :white_check_mark:
   * Aruco artifacts class :white_check_mark:
-  * QRcode reader class  :construction:
   * Line follower class (camera mode) :white_check_mark:
   * Face detection class  :white_check_mark:
   * Follow the target class (line,face or Aruco artifact) :white_check_mark:
   * Approach the target class (face or Aruco artifact) :white_check_mark:
-
+  
 * Special Classes for educational examples
   * Acceleration and Velocity experiment with graphs :white_check_mark:
   * Line follower robot :white_check_mark:
@@ -44,7 +43,7 @@ An overview of my programming stuck.
   * create_hotspot.sh Make the Raspberry Pi a wireless Access Point. :white_check_mark:
 
 * Browser interface
-  * NodeJS app for robot management from your browser. :warning:
+  * NodeJS app for robot management from your browser.:white_check_mark:
 
 ## :exclamation: **Important Notice** :exclamation:
 :cop: The robot fully comply with the three laws of robotics:

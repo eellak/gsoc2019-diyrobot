@@ -6,5 +6,5 @@ by Christos Chronis. This library mainly designed to work along the Jupyter Note
 but works fine directly from any python script. You can easily control all the electronics
 parts of a robot with minimum requirement the GPIO pin number. In the library you can also find 
 some applications of computer vision with OpenCV, such as face detection, arruco artifact detection
-etc.. More information's on https://github.com/eellak/gsoc2019-diyrobot.
+etc. also the electronic parts enclosures and the robot is 3D printble.  More information's on https://github.com/eellak/gsoc2019-diyrobot.
 
