@@ -1,6 +1,6 @@
 # The mind of the Robot
 
-Here you can find all the needed files (python libraries and scripts) for a smooth deployment. For instructions visit the Wiki](https://github.com/eellak/gsoc2019-diyrobot/wiki) of the repository
+Here you can find all the needed files (python libraries and scripts) for a smooth deployment. For instructions visit the [Wiki](https://github.com/eellak/gsoc2019-diyrobot/wiki) of the repository
 
 An overview of my programming stuck.
 ![prog stuck](../assets/images/prog_stuck.png)

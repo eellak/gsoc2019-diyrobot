@@ -1,6 +1,6 @@
 # The designs of the DIY-Robot kit
 
-Here you can find all the stl files for the kit. For instructions and images visit the Wiki](https://github.com/eellak/gsoc2019-diyrobot/wiki)  of the repository . 
+Here you can find all the stl files for the kit. For instructions and images visit the [Wiki](https://github.com/eellak/gsoc2019-diyrobot/wiki)  of the repository . 
 
 ![components](../assets/images/components.png)
 
