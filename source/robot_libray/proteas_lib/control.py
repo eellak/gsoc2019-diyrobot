@@ -648,21 +648,18 @@ class odometer():
 	reset() Resets the steps counter
 	'''
 	def __init__(self,pin,sensor_disc = 20):
+	
 		self.pin = pin
 		GPIO.setup(pin, GPIO.IN)
 		self.prev_pos = self.get_state()
 		self.sensor_disc = sensor_disc
-		self.steps = 0
+		self.steps = 0				
+		GPIO.add_event_detect(self.pin, GPIO.RISING,callback=self.count_revolutions,bouncetime=100 )
+
 	def get_state(self):
 		return GPIO.input(self.pin)
-	def count_revolutions(self):
-		if self.get_state():
-			if not self.prev_pos:
-				self.prev_pos = True
-				self.steps +=1
-		else:
-			if self.prev_pos:
-				self.prev_pos = False
+	def count_revolutions(self,channel):
+		self.steps +=1
 
 	def get_steps(self):
 		return self.steps
@@ -672,8 +669,7 @@ class odometer():
 		circumference = wheel_diameter * math.pi
 		revolutions = self.steps/self.sensor_disc
 		distance = revolutions * circumference
-		#return round(distance,precision)
-		return(distance)
+		return round(distance,precision)
 	def reset(self):
 		self.steps = 0
 
