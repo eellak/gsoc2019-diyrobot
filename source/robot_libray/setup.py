@@ -5,7 +5,7 @@ with open('README.md') as readme_file:
 
 setup_args = dict(
     name="proteas_lib",
-    version="0.0.4.2",
+    version="1.0.0",
     author="Christos Chronis",
     author_email="hronis@hotmail.com",
     description="A Rasperry Pi robot library for educators.",
@@ -23,7 +23,7 @@ setup_args = dict(
 )
 
 
-requirements = []
+requirements = ['netifaces','mpu6050-raspberrypi','Pillow','matplotlib']
 
 if __name__ == '__main__':
 
