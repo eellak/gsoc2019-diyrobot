@@ -10,7 +10,7 @@ An overview of my programming stuck.
   * Buzzer class :white_check_mark:
   * Dc motor class :white_check_mark:
   * Optical odometer class :white_check_mark:
-  * Obstacle ir sensor  class :white_check_mark:
+  * Obstacle IR sensor  class :white_check_mark:
   * Servo motor class :white_check_mark:
   * Nokia 5110 screen :white_check_mark:
   * MPU6050 accelerometer :white_check_mark:
@@ -34,13 +34,8 @@ An overview of my programming stuck.
   * Follow the target class (line,face or Aruco artifact) :white_check_mark:
   * Approach the target class (face or Aruco artifact) :white_check_mark:
   
-* Special Classes for educational examples
-  * Acceleration and Velocity experiment with graphs :white_check_mark:
-  * Line follower robot :white_check_mark:
-  * Collision avoidance :white_check_mark:
-
-* Scripts section
-  * create_hotspot.sh Make the Raspberry Pi a wireless Access Point. :white_check_mark:
+* Notebooks section
+  * Experiments and Examples :white_check_mark:
 
 * Browser interface
   * NodeJS app for robot management from your browser.:white_check_mark:

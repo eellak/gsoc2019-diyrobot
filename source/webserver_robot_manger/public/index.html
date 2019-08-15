@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<title>Proteas Robor</title>
+<title>Proteas Robot</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link rel="stylesheet" href="w3.css">
@@ -63,10 +63,10 @@
 	
     <div class="w3-container w3-center">     
 	 <p>Restart or Shutdown </p>
-	 <a  href="/restart">
+	 <a  onclick="restart_function()" href="javascript:void(0);">
 	 <img src="images/restart.png" style="width:100px;height:100px;"></a>
 
-	  <a  href="/shutdown">
+	  <a  onclick="shutdown_function()" href="javascript:void(0);">
 	  <img src="images/shutdown.png" style="width:100px;height:100px;"></a>
 	</div>
 	
@@ -103,7 +103,19 @@ function redirect_jupyter(){
 	window.location.replace("http://"+cur_url+":8888/");
 }
 
+function restart_function() {
+  var r = confirm("Press OK to confirm the Restart!");
+  if (r == true) {
+     window.location.href = "/restart";
+}
+}
 
+function shutdown_function() {
+  var r = confirm("Press OK to confirm the Shutdown!");
+  if (r == true) {
+    window.location.href = "/shutdown";
+	}
+}
 </script>
 
 </body>
