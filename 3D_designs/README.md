@@ -17,13 +17,18 @@ Here you can find all the stl files for the kit. For instructions and images vis
   * Free rotation wheel module :white_check_mark:
 * Main body 
   * Top part :white_check_mark:
-  * Bottom part :white_check_mark:
+  * Bottom part tall :white_check_mark:
+  * Bottom part short:white_check_mark:
 * Boards modules
   * Raspberry Pi 3 self lock base with male socket :white_check_mark:
   * L298N Dual H-Bridge self lock base with male socket :white_check_mark:
+  * Power block 
+  * Battery block
 * Wire grouping socket 
+  
   * 8 Pin expansion suitable for GND and VCC  :white_check_mark:
 * Servo Blocks
+  
   * SG-5010 Servo :white_check_mark:
 * Arm parts
   * Rotation base :white_check_mark:
@@ -31,14 +36,28 @@ Here you can find all the stl files for the kit. For instructions and images vis
   * Robotic Arm Gripper :white_check_mark:
 * Sensors Blocks
   * Raspberry Pi Camera Block :white_check_mark:
+  
   * Ultrasonic sensor HC-SR04 :white_check_mark:
+  
   * IR Infrared Obstacle :white_check_mark:
+  
   * Sensor extender 2 socket L shape:white_check_mark:
+  
+  * Sensor extender 4 socket L shape:white_check_mark:
+  
   * Dual male connector for Sensor extenders :white_check_mark:
+  
   * Breadboard module :white_check_mark:
+  
   * Magic Super-Mini-Breadboard :white_check_mark:
+  
   * Nokia 5110 LCD screen module :white_check_mark:
-  * Optical odometer HC-020K module :white_check_mark:
+  
+  * Optical odometer HC-020K block:white_check_mark:
+  
+  * Internal Optical odometer HC-020K block:white_check_mark:
+  
+    
 
 
 ## Explanation of the marks

@@ -2,7 +2,7 @@
 ===============
 
 ## Introduction
-With that project designed an easy to assembly and program robot. The designs is 3D printable and all the electronics parts are easy to find in any electronic equipment store. The robot have the  Raspberry Pi 3+  as the main computer with Raspbian operating system combined with Jupyter Notebook as programing interface and a Node.js application as front end main control page. You can program and control the robot through your browser using the Proteas wireless access Point. 
+With that project I designed an easy to assembly and program, robot from scratch. The designs is 3D printable and all the electronics parts are easy to find in any electronic equipment store. The robot have the  Raspberry Pi 3+  as the main computer with Raspbian operating system combined with Jupyter Notebook as programing interface and a Node.js application as front-end main control page. You can program and control the robot through your browser using the Proteas wireless access point. 
 
 [View the project on Google Summer of Code website](https://summerofcode.withgoogle.com/projects/#6536613096587264).
 
@@ -11,6 +11,10 @@ You can see the detailed timeline [here](https://github.com/eellak/gsoc2019-diyr
 
 
 ![proteas robot advance](./assets/images/advance.png)
+
+### Proteas robot teaser video
+
+[![](http://img.youtube.com/vi/83zVe_P6pcM/0.jpg)](http://www.youtube.com/watch?v=83zVe_P6pcM "")
 
 Final Report
 ------------
@@ -71,7 +75,7 @@ Some thoughts for future expansion:
 
 ### Student
 
-* Christos Chronis
+* [Christos Chronis](https://github.com/chronis10)
 
 ### GSoC Mentors
 

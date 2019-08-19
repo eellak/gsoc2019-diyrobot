@@ -1,6 +1,8 @@
 # The mind of the Robot
 
-Here you can find all the needed files (python libraries and scripts) for a smooth deployment. For instructions visit the [Wiki](https://github.com/eellak/gsoc2019-diyrobot/wiki) of the repository
+Here you can find all the needed files (python libraries and scripts) for a smooth deployment. 
+
+For instructions visit the [Wiki](https://github.com/eellak/gsoc2019-diyrobot/wiki) of the repository
 
 An overview of my programming stuck.
 ![prog stuck](../assets/images/prog_stuck.png)
@@ -14,7 +16,6 @@ An overview of my programming stuck.
   * Servo motor class :white_check_mark:
   * Nokia 5110 screen :white_check_mark:
   * MPU6050 accelerometer :white_check_mark:
-  * HMC5883L compass :white_check_mark:
   * Ultrasonic sensor :white_check_mark:
   * General input class (every sensor with digital output eg. light sensor) :white_check_mark:
   * General output class (led and every sensor with digital input eg.  relay shield) :white_check_mark:
@@ -24,7 +25,7 @@ An overview of my programming stuck.
   * Make csv class save measurements to csv :white_check_mark:
   * PID class :white_check_mark:
   * Inverse Kinematics for 2-DOF robotic arm :white_check_mark:
-
+  
 * Computer Vision library :white_check_mark:
   * Capture image class :white_check_mark:
   * Image preview class on Jupyter notebook :white_check_mark:
@@ -35,10 +36,10 @@ An overview of my programming stuck.
   * Approach the target class (face or Aruco artifact) :white_check_mark:
   
 * Notebooks section
-  * Experiments and Examples :white_check_mark:
+  * Courses and Examples :white_check_mark:
 
 * Browser interface
-  * NodeJS app for robot management from your browser.:white_check_mark:
+  * Node.js app for the robot management from your browser.:white_check_mark:
 
 ## :exclamation: **Important Notice** :exclamation:
 :cop: The robot fully comply with the three laws of robotics:
