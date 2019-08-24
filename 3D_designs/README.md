@@ -27,6 +27,9 @@ Here you can find all the stl files for the kit. For instructions and images vis
 * Wire grouping socket 
   
   * 8 Pin expansion suitable for GND and VCC  :white_check_mark:
+  * 10 cables management component (thin cables) :white_check_mark:
+  * 10 cables management component (normal cables) :white_check_mark:
+  * 10 cables management component (mixed cables) :white_check_mark:
 * Servo Blocks
   
   * SG-5010 Servo :white_check_mark:
