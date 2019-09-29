@@ -67,3 +67,8 @@ Here you can find all the stl files for the kit. For instructions and images vis
 * :warning: Under Construction part, not ready for printing yet.
 * :white_check_mark: Ready for printing.
 * :construction: Upcoming release
+
+
+
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Άδεια Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />The 3D designs , educational material and text is licensed under a  <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>
