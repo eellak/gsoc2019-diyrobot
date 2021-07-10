@@ -76,6 +76,7 @@ Some thoughts for future work:
 ### Student
 
 * [Christos Chronis](https://github.com/chronis10)
+* [Yiorgos Yiannakoulias](https://github.com/yiorgosynkl)
 
 ### GSoC Mentors
 
