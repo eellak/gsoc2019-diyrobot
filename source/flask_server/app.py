@@ -10,6 +10,7 @@ LOCAL_IP = '127.0.0.1'
 CONTROL = None
 MOTOR_A = None
 MOTOR_B = None
+ULTRA_OBS = None
 
 @app.route('/')
 def index():
@@ -17,10 +18,11 @@ def index():
 
 @app.before_first_request
 def before_first_request():
-    global MOTOR_A, MOTOR_B
+    global MOTOR_A, MOTOR_B, ULTRA_OBS
     control.start_lib()
     MOTOR_A = control.motor(17,27,22)
     MOTOR_B = control.motor(10,11,9)
+    ULTRA_OBS = control.ultrasonic_sensor()
     
 @app.route('/shutdown')
 def shutdown():
@@ -34,6 +36,15 @@ def test():
         sleep(1) # Sleep for 1 second   
         MOTOR_A.stop()
         return jsonify({ "status": "ok" })
+        
+@app.route('/dist', methods=['GET'])
+def dist():
+    if request.method == 'GET':
+        dist = ULTRA_OBS.get_distance()
+        return jsonify({ 
+            "status": "ok",
+            "distance": dist  
+        })
 
 @app.route('/motor/<action>', methods=['GET'])
 def motor(action):
