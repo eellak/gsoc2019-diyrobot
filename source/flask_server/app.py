@@ -27,6 +27,14 @@ def shutdown():
     control.clean()
     sys.exit()
 
+@app.route('/test', methods=['GET'])
+def test():
+    if request.method == 'GET':
+        MOTOR_A.move()
+        sleep(1) # Sleep for 1 second   
+        MOTOR_A.stop()
+        return jsonify({ "status": "ok" })
+
 @app.route('/motor/<action>', methods=['GET'])
 def motor(action):
     if request.method == 'GET':
