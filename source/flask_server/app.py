@@ -8,6 +8,8 @@ app = Flask(__name__)
 LOCAL_IP = '127.0.0.1'
 
 CONTROL = None
+MOTOR_A = None
+MOTOR_B = None
 
 @app.route('/')
 def index():
@@ -15,12 +17,33 @@ def index():
 
 @app.before_first_request
 def before_first_request():
+    global MOTOR_A, MOTOR_B
     control.start_lib()
+    MOTOR_A = control.motor(17,27,22)
+    MOTOR_B = control.motor(10,11,9)
     
 @app.route('/shutdown')
 def shutdown():
     control.clean()
     sys.exit()
+
+@app.route('/motor/<action>', methods=['GET'])
+def motor(action):
+    if request.method == 'GET':
+        
+        motor_name = str(request.args.get('name'))
+        if motor_name == 'motor_a':
+            if action == 'move': 
+                MOTOR_A.move()
+            elif action == 'stop':
+                MOTOR_A.stop()
+        elif motor_name == 'motor_b':
+            if action == 'move':
+                MOTOR_B.move()
+            elif action == 'stop':
+                MOTOR_B.stop()
+        return jsonify({ "status": "ok" })
+
 
 if __name__ == '__main__':
     try:
