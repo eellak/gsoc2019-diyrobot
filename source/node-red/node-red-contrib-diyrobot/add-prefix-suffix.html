@@ -1,0 +1,32 @@
+<script type="text/javascript">
+    RED.nodes.registerType('add-prefix-suffix-node',{
+        category: 'diyrobot',
+        color: '#F3B567',
+        defaults: {
+            name: {value:""},
+	    prefix: {value: ""},
+	    suffix: {value: ""}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "font-awesome/fa-arrow-up",
+        label: function() {
+            return this.name||"add-prefix-suffix-node";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="add-prefix-suffix-node">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name"><br>
+        <label for="node-input-prefix"><i class="fa fa-tag"></i> Prefix</label>
+        <input type="text" id="node-input-prefix"><br>
+        <label for="node-input-suffix"><i class="fa fa-tag"></i> Suffix</label>
+        <input type="text" id="node-input-suffix">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="add-prefix-suffix-node">
+    <p>A simple node that adds prefix and suffix to a text input</p>
+</script>
