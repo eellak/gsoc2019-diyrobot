@@ -10,7 +10,7 @@
   "license": "ISC",
   "node-red": {
     "nodes": {
-      "test-lower-case": "test-lower-case.js"
+      "lower-case": "lower-case.js"
     }
   }
 }
