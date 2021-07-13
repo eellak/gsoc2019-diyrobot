@@ -49,7 +49,6 @@ def dist():
 @app.route('/motor/<action>', methods=['GET'])
 def motor(action):
     if request.method == 'GET':
-        
         motor_name = str(request.args.get('name'))
         if motor_name == 'motor_a':
             if action == 'move': 
@@ -63,6 +62,48 @@ def motor(action):
                 MOTOR_B.stop()
         return jsonify({ "status": "ok" })
 
+# ~ @app.route('/motors/<action>', methods=['GET'])
+# ~ def motor(action):
+    # ~ if request.method == 'GET':
+        # ~ if action == 'set':
+        
+        # ~ elif action == 'move':
+            # ~ motor_name = str(request.args.get('name'))
+            # ~ if motor_name == 'motor_a':
+                # ~ MOTOR_A.move()
+            # ~ elif motor_name == 'motor_b':
+                # ~ MOTOR_B.move()
+            # ~ else:
+                # ~ print('ERROR (in moving given motor)')
+        # ~ elif action == 'stop':
+            # ~ motor_name = str(request.args.get('name'))
+            # ~ if motor_name == 'motor_a':
+                # ~ MOTOR_A.stop()
+            # ~ elif motor_name == 'motor_b':
+                # ~ MOTOR_B.stop()
+            # ~ else:
+                # ~ print('ERROR (in stopping given motor)')
+        # ~ else:
+            # ~ print('ERROR (in motors endpoint http request)')
+        # ~ return jsonify({ "status": "ok" })
+
+@app.route('/motor_set', methods=['GET'])
+def motor_set():
+    global MOTOR_A, MOTOR_B, ULTRA_OBS
+    if request.method == 'GET':
+        # ~ control.clean()
+        # ~ control.start_lib()
+        motor_a_en = int(request.args.get('motor_a_en'))
+        motor_a_in1 = int(request.args.get('motor_a_in1'))
+        motor_a_in2 = int(request.args.get('motor_a_in2'))
+        motor_b_en = int(request.args.get('motor_b_en'))
+        motor_b_in1 = int(request.args.get('motor_b_in1'))
+        motor_b_in2 = int(request.args.get('motor_b_in2'))
+        # ~ MOTOR_A = control.motor(motor_a_en,motor_a_in1,motor_a_in2)
+        # ~ MOTOR_B = control.motor(motor_b_en,motor_b_in1,motor_b_in2)
+        # ~ ULTRA_OBS = control.ultrasonic_sensor()
+        return jsonify({ "status": "ok" })
+# ~ /motor_set?motor_a_en=17&motor_a_in1=27&motor_a_in2=22&motor_b_en=10&motor_b_in1=11&motor_b_in2=9
 
 if __name__ == '__main__':
     try:
