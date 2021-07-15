@@ -11,7 +11,9 @@
   "node-red": {
     "nodes": {
       "lower-case": "lower-case.js",
-      "add-prefix-suffix": "add-prefix-suffix.js"
+      "add-prefix-suffix": "add-prefix-suffix.js",
+      "distance": "distance.js",
+      "tmp": "tmp.js"
     }
   }
 }
