@@ -1,0 +1,26 @@
+<script type="text/javascript">
+    RED.nodes.registerType('tmp',{
+        category: 'diyrobot',
+        color: '#F3B567',
+        defaults: {
+            name: {value:""}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "font-awesome/fa-arrow-up",
+        label: function() {
+            return this.name||"tmp";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="tmp">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name"><br>
+    </div>
+</script>
+
+<script type="text/html" data-help-name="tmp">
+    <p>A simple node for experimentation</p>
+</script>
