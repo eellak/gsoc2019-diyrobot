@@ -1,0 +1,26 @@
+<script type="text/javascript">
+    RED.nodes.registerType('distance',{
+        category: 'diyrobot',
+        color: '#F3B567',
+        defaults: {
+            name: {value:""}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "font-awesome/fa-arrow-up",
+        label: function() {
+            return this.name||"distance";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="distance">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name"><br>
+    </div>
+</script>
+
+<script type="text/html" data-help-name="distance">
+    <p>A simple node for measuring distance in centimeters using the ultrasonic sensor</p>
+</script>
