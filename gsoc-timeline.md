@@ -81,8 +81,10 @@ The aforementioned tutorials will also be supported using NodeRED or Scratch. Th
 and experience the effects in real-life applications.
 
 As I gain more experience, the scenarios will contain more tutorials and guidelines for the robot.
-Examples include:
-* obstacle avoidance - automatic movement and remote control modes
+The most important implementation are the following:
+* obstacle avoidance - detect wall and stop (implementing the logic using subflows and Node-Red, this will help students develop programming intuition visually) 
+* control pattern movement of the robot (using Node-Red)
 * Dancing Robot and musical light show
-* Line following
 
+After that, I will add the color detection sensor and develop a line following implementation:
+* Line following scenario
