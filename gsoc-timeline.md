@@ -69,7 +69,7 @@ through the robot.
 
 The scenarios of stage C will be used transformed later to support intergration with NodeRED or Scratch. 
 
-## Stage D: Implementing of new learning scenarios (June 21 - August 15, 2021)
+## Stage D: Implementing of new learning scenarios (July 21 - August 15, 2021)
 
 This stage is parallel to stage D. During this stage, I plan to develop several new guidelines and use cases. 
 Some use cases will focus on using simple tasks only with the RaspberryPi, so educators can get the grasp of it, without
@@ -88,3 +88,14 @@ The most important implementation are the following:
 
 After that, I will add the color detection sensor and develop a line following implementation:
 * Line following scenario
+
+## Stage E: Creating Website, Writing Documentation, Adding Pictures, Filming and Editing Videos (August 7 - August 23, 2021)
+
+This stage will be an attempt to make the project more accessible to the public. I plan to make analytic guidelines using jupyter notebooks and video tutorials that will be more intuitive for teachers. I will also systematise the way people can contact us and contribute to the project. Building a community around the project is a goal I aspire to achieve.
+
+
+## Stage F: Brainstorming (August 7 - August 23, 2021)
+
+In fear that the timeline is overly optimistic this time period is dedicated to make sure that all
+previous stages have been completed. Furthermore, this is a timeslot dedicated to experimentation with ideas 
+that will emerge during my work experience on the project.
