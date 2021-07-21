@@ -53,11 +53,15 @@ def motor(action):
         if motor_name == 'motor_a':
             if action == 'move': 
                 MOTOR_A.move()
+            elif action == 'reverse':
+                MOTOR_A.move("reverse")
             elif action == 'stop':
                 MOTOR_A.stop()
         elif motor_name == 'motor_b':
             if action == 'move':
                 MOTOR_B.move()
+            elif action == 'reverse':
+                MOTOR_B.move("reverse")
             elif action == 'stop':
                 MOTOR_B.stop()
         return jsonify({ "status": "ok" })
