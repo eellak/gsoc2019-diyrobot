@@ -14,6 +14,11 @@ ODOMETER_A = None # attached to right wheel
 ODOMETER_B = None 
 ULTRA_OBS = None
 
+STATE = {
+    'motor_a': 'stop', # 3 choices of direction of movement: move, stop, reverse
+    'motor_b': 'stop'
+}
+
 @app.route('/')
 def index():
     return 'Server for remote control of Proteas Robot is up!!'
@@ -47,7 +52,7 @@ def dist():
         dist = ULTRA_OBS.get_distance()
         return jsonify({ 
             "status": "ok",
-            "distance": dist  
+            "dist_u": dist  
         })
         
 
@@ -87,17 +92,23 @@ def motor(action):
         if motor_name == 'motor_a':
             if action == 'move': 
                 MOTOR_A.move()
+                STATE['motor_a'] = 'move'
             elif action == 'reverse':
                 MOTOR_A.move("reverse")
+                STATE['motor_a'] = 'reverse'
             elif action == 'stop':
                 MOTOR_A.stop()
+                STATE['motor_a'] = 'stop'
         elif motor_name == 'motor_b':
             if action == 'move':
                 MOTOR_B.move()
+                STATE['motor_b'] = 'move'
             elif action == 'reverse':
                 MOTOR_B.move("reverse")
+                STATE['motor_b'] = 'reverse'
             elif action == 'stop':
                 MOTOR_B.stop()
+                STATE['motor_b'] = 'stop'
         return jsonify({ "status": "ok" })
 
 
