@@ -49,10 +49,10 @@ def test():
 @app.route('/dist', methods=['GET'])
 def dist():
     if request.method == 'GET':
-        dist = ULTRA_OBS.get_distance()
+        dist_u = ULTRA_OBS.get_distance()
         return jsonify({ 
             "status": "ok",
-            "dist_u": dist  
+            "dist_u": dist_u  
         })
         
 
@@ -110,6 +110,28 @@ def motor(action):
                 MOTOR_B.stop()
                 STATE['motor_b'] = 'stop'
         return jsonify({ "status": "ok" })
+        
+
+@app.route('/state', methods=['GET'])
+def state():
+    if request.method == 'GET':
+        dist_a = ODOMETER_A.get_distance()
+        dist_b = ODOMETER_B.get_distance()
+        rev_a = ODOMETER_A.get_revolutions()
+        rev_b = ODOMETER_B.get_revolutions()
+        dist_u = ULTRA_OBS.get_distance()
+        motor_a = STATE['motor_a']
+        motor_b = STATE['motor_b']
+        return jsonify({ 
+            "status": "ok",
+            "dist_a": dist_a, 
+            "dist_b": dist_b,
+            "rev_a": rev_a,
+            "rev_b": rev_b,
+            "dist_u": dist_u,
+            "motor_a": motor_a,
+            "motor_b": motor_b
+        })
 
 
 
