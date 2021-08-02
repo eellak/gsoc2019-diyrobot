@@ -10,7 +10,8 @@ LOCAL_IP = '127.0.0.1'
 CONTROL = None
 MOTOR_A = None
 MOTOR_B = None
-ODOMETER_B = None
+ODOMETER_A = None # attached to right wheel 
+ODOMETER_B = None 
 ULTRA_OBS = None
 
 @app.route('/')
@@ -19,10 +20,11 @@ def index():
 
 @app.before_first_request
 def before_first_request():
-    global MOTOR_A, MOTOR_B, ODOMETER_B, ULTRA_OBS
+    global MOTOR_A, MOTOR_B, ODOMETER_A, ODOMETER_B, ULTRA_OBS
     control.start_lib()
     MOTOR_A = control.motor(17,27,22)
     MOTOR_B = control.motor(10,11,9)
+    ODOMETER_A = control.odometer(6)
     ODOMETER_B = control.odometer(13)
     ULTRA_OBS = control.ultrasonic_sensor()
     
@@ -53,24 +55,28 @@ def dist():
 def odometer(action):
     if request.method == 'GET':
         if action == 'reset':
+            ODOMETER_A.reset()
             ODOMETER_B.reset()
             return jsonify({ "status": "ok" })
         elif action == 'dist':
-            dist = ODOMETER_B.get_distance()
+            dist_a = ODOMETER_A.get_distance()
+            dist_b = ODOMETER_B.get_distance()
             return jsonify({ 
                 "status": "ok",
-                "dist": dist 
+                "dist_a": dist_a, 
+                "dist_b": dist_b 
             })
         elif action == 'rev':
-            rev = ODOMETER_B.get_revolutions()
+            rev_a = ODOMETER_A.get_revolutions()
+            rev_b = ODOMETER_B.get_revolutions()
             return jsonify({ 
                 "status": "ok",
-                "rev": rev 
+                "rev_a": rev_a,
+                "rev_b": rev_b                 
             })
         else:
             print('ERROR')
             return jsonify({ "status": "error in flask server (unmet condition)" })
-        
 
 
 
