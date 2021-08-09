@@ -50,7 +50,8 @@ for index, row in df.iterrows():
 
     coords.append(point)
 
-print(coords)
+plt.title("Route of robot (starting at (0, 0))")
+plt.xlabel("x")
+plt.ylabel("y")
 plt.scatter([x for x,_ in coords] , [y for _,y in coords])
-plt.show()
-
+plt.savefig("route.png")
