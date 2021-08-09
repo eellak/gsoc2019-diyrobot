@@ -1,5 +1,6 @@
 import pandas as pd
 import math
+import matplotlib.pyplot as plt
 
 CSV_PATH = './state.csv'
 
@@ -50,3 +51,6 @@ for index, row in df.iterrows():
     coords.append(point)
 
 print(coords)
+plt.scatter([x for x,_ in coords] , [y for _,y in coords])
+plt.show()
+
