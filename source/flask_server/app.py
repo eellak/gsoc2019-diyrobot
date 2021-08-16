@@ -3,6 +3,7 @@ import sys
 from time import sleep
 
 from proteas_lib import control
+from route import plot_route
 
 app = Flask(__name__)
 LOCAL_IP = '127.0.0.1'
@@ -133,7 +134,15 @@ def state():
             "motor_b": motor_b
         })
 
-
+@app.route('/route', methods=['GET'])
+def route():
+    if request.method == 'GET':
+        if True: # TODO
+            filename = '../node-red/robot_state/route.png'
+        else:
+            filename = '../node-red/robot_state/error.png'
+        return send_file(filename, mimetype='image/png')
+        # return jsonify({ "status": "ok" })
 
 # ~ @app.route('/motors/<action>', methods=['GET'])
 # ~ def motor(action):
