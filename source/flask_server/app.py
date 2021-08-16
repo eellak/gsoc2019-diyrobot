@@ -3,7 +3,7 @@ import sys
 from time import sleep
 
 from proteas_lib import control
-from route import plot_route
+from flask import send_file
 
 app = Flask(__name__)
 LOCAL_IP = '127.0.0.1'
