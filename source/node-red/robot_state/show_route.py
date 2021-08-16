@@ -15,43 +15,71 @@ df['y'] = 0
 coords = []
 
 # define sampling time
-T = 1 # sec
-R = 3 # radius of wheel in cm
-L = 15 # width of robot in cm
+# T = 0.2 # sec
+# R = 3 # radius of wheel in cm
+# L = 15 # width of robot in cm
+PI = 3.14159 
+AXLE_LENGTH = 15 # width of robot in cm
 
-# suppose motor b is at the left
+
+# useful links for dead reckoning: 
+# * http://www.seattlerobotics.org/encoder/200010/dead_reckoning_article.html
+# * http://rossum.sourceforge.net/papers/DiffSteer/DiffSteer.html
+
 
 for index, row in df.iterrows():
     if index == 0:
-        point = (0, 0)
+        # x, y, theta (angle counted from x axis)
+        cur_x, cur_y, cur_theta = 0.0, 0.0, 0.0
+        point = (cur_x, cur_y, cur_theta)
     else:
-        # TODO: right better with dataframe action
-        # suppose motor a is at the right
+        # calculate distance travelled by right motor
         if df.iloc[index]['motor_a'] == 'move':
-            vr = df.iloc[index]['dist_a'] - df.iloc[index-1]['dist_a'] 
+            dist_right = (df.iloc[index]['dist_a'] - df.iloc[index-1]['dist_a']) 
         elif df.iloc[index]['motor_a'] == 'reverse':
-            vr = df.iloc[index-1]['dist_a'] - df.iloc[index]['dist_a']
+            dist_right = (df.iloc[index-1]['dist_a'] - df.iloc[index]['dist_a']) 
         else: # suppose it moves forward
-            vr = df.iloc[index]['dist_a'] - df.iloc[index-1]['dist_a'] 
-        # suppose motor b is at the left
+            dist_right = (df.iloc[index]['dist_a'] - df.iloc[index-1]['dist_a'])
+
+        # calculate distance travelled by left motor
         if df.iloc[index]['motor_b'] == 'move': 
-            vl = df.iloc[index]['dist_b'] - df.iloc[index-1]['dist_b']  
-        elif df.iloc[index]['motor_a'] == 'reverse':
-            vl = df.iloc[index-1]['dist_b'] - df.iloc[index]['dist_b']  
+            dist_left = (df.iloc[index]['dist_b'] - df.iloc[index-1]['dist_b'])
+        elif df.iloc[index]['motor_b'] == 'reverse':
+            dist_left = (df.iloc[index-1]['dist_b'] - df.iloc[index]['dist_b'])
         else: 
-            vl = df.iloc[index]['dist_b'] - df.iloc[index-1]['dist_b']
+            dist_left = (df.iloc[index]['dist_b'] - df.iloc[index-1]['dist_b'])
 
-        dphi = (R/L) * (vr - vl)
-        dx = (R/2) * (vr + vl) * math.cos(dphi)
-        dy = (R/2) * (vr + vl) * math.sin(dphi)
+        cos_current = math.cos(cur_theta)
+        sin_current = math.sin(cur_theta)
 
-        x, y = point[0], point[1]
-        point = (x + dx, y + dy)
+        if (dist_left == dist_right):
+        # moving in straight line, that means that distances are equal (or almost equal)
+            cur_x = prv_x + dist_left * cos_current
+            cur_y = prv_y + dist_left * sin_current
+        else:
+        # moving in an arc
+            expr1 = (AXLE_LENGTH * (dist_right + dist_left)) / (2 * (dist_right - dist_left))
+            right_minus_left = dist_right - dist_left
 
+            cur_x = prv_x + expr1 * (math.sin(right_minus_left / AXLE_LENGTH + cur_theta) - sin_current)
+            cur_y = prv_y - expr1 * (math.cos(right_minus_left / AXLE_LENGTH + cur_theta) - cos_current)
+
+            # Calculate new orientation
+            cur_theta = prv_theta + right_minus_left / AXLE_LENGTH
+
+            # Keep in the range -PI to +PI
+            while (cur_theta > PI): 
+                cur_theta -= (2.0 * PI)
+            while (cur_theta < -PI):
+                cur_theta += (2.0 * PI)
+
+    point = (cur_x, cur_y, cur_theta)
     coords.append(point)
+    prv_x, prv_y, prv_theta = cur_x, cur_y, cur_theta
+
 
 plt.title("Route of robot (starting at (0, 0))")
 plt.xlabel("x")
 plt.ylabel("y")
-plt.scatter([x for x,_ in coords] , [y for _,y in coords])
+plt.scatter([x for x,_,_ in coords] , [y for _,y,_ in coords])
 plt.savefig("route.png")
