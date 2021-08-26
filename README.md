@@ -37,9 +37,9 @@ This project is a continuation of a previous GSoC project that was developed by 
 
 Since this is considered a separate and more advanced version of the DIY robot, [the code for this GSoC project](https://github.com/eellak/gsoc2019-diyrobot/tree/dev) was continued in a separate branch.
 
-The timeline of the project can be found in the [relevant markdown file](./gsoc-timeline.md).
+> The timeline of the project can be found in the [relevant markdown file](./gsoc-timeline.md).
 
-The final evaluation report for the GSoC project can be found [here](https://gist.github.com/yiorgosynkl/914e75d0f9ae98bb31f4d8da66ec9908/edit).
+> The final evaluation report for the GSoC project can be found [here](https://gist.github.com/yiorgosynkl/914e75d0f9ae98bb31f4d8da66ec9908).
 
 
 ## :100: Deliverables and Results (with references)
