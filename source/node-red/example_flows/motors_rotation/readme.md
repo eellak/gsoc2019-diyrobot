@@ -1,4 +1,4 @@
-# Motos Rotation
+# Motors Rotation
 
 In this example, we rotate the robot remotely using Node-Red.
 To connect to the Node-Red platform, you can just use the browser and go to the local IP address using the port `1880`. Also make sure that the flask server, responsible for answering requests, is up and running. 
